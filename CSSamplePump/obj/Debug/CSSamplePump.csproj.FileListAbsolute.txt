@@ -1,0 +1,41 @@
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSample.exe
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSample.pdb
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\bin\Debug\CSSample.exe.config
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\bin\Debug\CSSample.exe
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\bin\Debug\CSSample.pdb
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\bin\Debug\Interop.PUMPCOMMSERVERLib.dll
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.SuggestedBindingRedirects.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\Interop.PUMPCOMMSERVERLib.dll
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.ResolveComReference.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSample.Form1.resources
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSample.Properties.Resources.resources
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.GenerateResource.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\bin\Debug\CSSample.exe.config
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\bin\Debug\CSSample.exe
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\bin\Debug\CSSample.pdb
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\bin\Debug\Interop.PUMPCOMMSERVERLib.dll
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.AssemblyReference.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.SuggestedBindingRedirects.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\Interop.PUMPCOMMSERVERLib.dll
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.ResolveComReference.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSample.Form1.resources
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSample.Properties.Resources.resources
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.GenerateResource.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSample.exe
+C:\Program Files (x86)\Tecan\Cavro FUSION Software V4.0.2\Help\Sample Code\Cavro backup\CSSamplePump\CSSamplePump\obj\Debug\CSSample.pdb
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.AssemblyReference.cache
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.ResolveComReference.cache
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSample.Form1.resources
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSample.Properties.Resources.resources
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.GenerateResource.cache
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.CoreCompileInputs.cache
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSample.exe
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSample.pdb
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\bin\Debug\CSSample.exe.config
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\bin\Debug\CSSample.exe
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\bin\Debug\CSSample.pdb
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.CopyComplete
+C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\Interop.PUMPCOMMSERVERLib.dll

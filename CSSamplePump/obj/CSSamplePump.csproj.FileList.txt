@@ -1,0 +1,11 @@
+bin\Debug\CSSample.exe
+bin\Debug\CSSample.pdb
+bin\Debug\Interop.PUMPCOMMSERVERLib.dll
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Interop.PUMPCOMMSERVERLib.dll
+obj\Debug\CSSamplePump.csproj.ResolveComReference.cache
+obj\Debug\CSSample.Form1.resources
+obj\Debug\CSSample.Properties.Resources.resources
+obj\Debug\CSSamplePump.csproj.GenerateResource.Cache
+obj\Debug\CSSample.exe
+obj\Debug\CSSample.pdb
