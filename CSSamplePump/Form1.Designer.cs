@@ -41,8 +41,6 @@ namespace CSSample
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnPrime = new System.Windows.Forms.Button();
-            this.btnInit = new System.Windows.Forms.Button();
             this.pumpNumDrop = new System.Windows.Forms.ComboBox();
             this.phaseSelectDrop = new System.Windows.Forms.ComboBox();
             this.btnSendCommand = new System.Windows.Forms.Button();
@@ -55,7 +53,12 @@ namespace CSSample
             this.cmbBaudRate = new System.Windows.Forms.ComboBox();
             this.txtComPort = new System.Windows.Forms.TextBox();
             this.cmdOpenCom = new System.Windows.Forms.Button();
+            this.btnPrime = new System.Windows.Forms.Button();
+            this.btnInit = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnPurge = new System.Windows.Forms.Button();
+            this.btnWash = new System.Windows.Forms.Button();
+            this.btnFormulate = new System.Windows.Forms.Button();
             this.pumpSetNum = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.pump2delay = new System.Windows.Forms.TextBox();
@@ -79,17 +82,16 @@ namespace CSSample
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.stepSelect = new System.Windows.Forms.ComboBox();
             this.btnEditStep = new System.Windows.Forms.Button();
             this.btnSaveStep = new System.Windows.Forms.Button();
             this.txtEditStepBox = new System.Windows.Forms.TextBox();
-            this.btnFormulate = new System.Windows.Forms.Button();
-            this.btnWash = new System.Windows.Forms.Button();
-            this.btnPurge = new System.Windows.Forms.Button();
             this.pSet1Check = new System.Windows.Forms.CheckBox();
             this.pSet4Check = new System.Windows.Forms.CheckBox();
             this.pSet3Check = new System.Windows.Forms.CheckBox();
             this.pSet2Check = new System.Windows.Forms.CheckBox();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnResume = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -97,6 +99,8 @@ namespace CSSample
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnResume);
+            this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.pumpNumDrop);
             this.groupBox1.Controls.Add(this.phaseSelectDrop);
             this.groupBox1.Controls.Add(this.btnSendCommand);
@@ -117,26 +121,6 @@ namespace CSSample
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Initialize";
-            // 
-            // btnPrime
-            // 
-            this.btnPrime.Location = new System.Drawing.Point(156, 22);
-            this.btnPrime.Name = "btnPrime";
-            this.btnPrime.Size = new System.Drawing.Size(143, 37);
-            this.btnPrime.TabIndex = 14;
-            this.btnPrime.Text = "Prime";
-            this.btnPrime.UseVisualStyleBackColor = true;
-            this.btnPrime.Click += new System.EventHandler(this.btnPrime_Click);
-            // 
-            // btnInit
-            // 
-            this.btnInit.Location = new System.Drawing.Point(7, 23);
-            this.btnInit.Name = "btnInit";
-            this.btnInit.Size = new System.Drawing.Size(143, 37);
-            this.btnInit.TabIndex = 13;
-            this.btnInit.Text = "Initialize";
-            this.btnInit.UseVisualStyleBackColor = true;
-            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
             // 
             // pumpNumDrop
             // 
@@ -272,6 +256,26 @@ namespace CSSample
             this.cmdOpenCom.UseVisualStyleBackColor = true;
             this.cmdOpenCom.Click += new System.EventHandler(this.cmdOpenCom_Click);
             // 
+            // btnPrime
+            // 
+            this.btnPrime.Location = new System.Drawing.Point(156, 22);
+            this.btnPrime.Name = "btnPrime";
+            this.btnPrime.Size = new System.Drawing.Size(143, 37);
+            this.btnPrime.TabIndex = 14;
+            this.btnPrime.Text = "Prime";
+            this.btnPrime.UseVisualStyleBackColor = true;
+            this.btnPrime.Click += new System.EventHandler(this.btnPrime_Click);
+            // 
+            // btnInit
+            // 
+            this.btnInit.Location = new System.Drawing.Point(7, 23);
+            this.btnInit.Name = "btnInit";
+            this.btnInit.Size = new System.Drawing.Size(143, 37);
+            this.btnInit.TabIndex = 13;
+            this.btnInit.Text = "Initialize";
+            this.btnInit.UseVisualStyleBackColor = true;
+            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnPurge);
@@ -306,6 +310,35 @@ namespace CSSample
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pump Controls";
+            // 
+            // btnPurge
+            // 
+            this.btnPurge.Location = new System.Drawing.Point(603, 23);
+            this.btnPurge.Name = "btnPurge";
+            this.btnPurge.Size = new System.Drawing.Size(143, 37);
+            this.btnPurge.TabIndex = 26;
+            this.btnPurge.Text = "Purge";
+            this.btnPurge.UseVisualStyleBackColor = true;
+            // 
+            // btnWash
+            // 
+            this.btnWash.Location = new System.Drawing.Point(454, 23);
+            this.btnWash.Name = "btnWash";
+            this.btnWash.Size = new System.Drawing.Size(143, 37);
+            this.btnWash.TabIndex = 25;
+            this.btnWash.Text = "Wash";
+            this.btnWash.UseVisualStyleBackColor = true;
+            this.btnWash.Click += new System.EventHandler(this.btnWash_Click);
+            // 
+            // btnFormulate
+            // 
+            this.btnFormulate.Location = new System.Drawing.Point(305, 22);
+            this.btnFormulate.Name = "btnFormulate";
+            this.btnFormulate.Size = new System.Drawing.Size(143, 37);
+            this.btnFormulate.TabIndex = 24;
+            this.btnFormulate.Text = "Formulate";
+            this.btnFormulate.UseVisualStyleBackColor = true;
+            this.btnFormulate.Click += new System.EventHandler(this.btnFormulate_Click);
             // 
             // pumpSetNum
             // 
@@ -454,7 +487,7 @@ namespace CSSample
             this.cmdSendCommand.Name = "cmdSendCommand";
             this.cmdSendCommand.Size = new System.Drawing.Size(172, 37);
             this.cmdSendCommand.TabIndex = 5;
-            this.cmdSendCommand.Text = "Send Command";
+            this.cmdSendCommand.Text = "Update Commands";
             this.cmdSendCommand.UseVisualStyleBackColor = true;
             this.cmdSendCommand.Click += new System.EventHandler(this.cmdSendCommand_Click);
             // 
@@ -508,18 +541,23 @@ namespace CSSample
             this.listBox2.Size = new System.Drawing.Size(169, 504);
             this.listBox2.TabIndex = 3;
             // 
-            // comboBox1
+            // stepSelect
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.stepSelect.FormattingEnabled = true;
+            this.stepSelect.Items.AddRange(new object[] {
             "Initialize",
             "Prime Lipid",
-            "Prime Citrate"});
-            this.comboBox1.Location = new System.Drawing.Point(863, 33);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(169, 28);
-            this.comboBox1.TabIndex = 4;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            "Prime Citrate",
+            "Formulate Lipid",
+            "Formulate Citrate",
+            "Wash Lipid",
+            "Wash Citrate",
+            "Purge"});
+            this.stepSelect.Location = new System.Drawing.Point(863, 33);
+            this.stepSelect.Name = "stepSelect";
+            this.stepSelect.Size = new System.Drawing.Size(169, 28);
+            this.stepSelect.TabIndex = 4;
+            this.stepSelect.SelectedIndexChanged += new System.EventHandler(this.stepSelect_SelectedIndexChanged);
             // 
             // btnEditStep
             // 
@@ -547,33 +585,6 @@ namespace CSSample
             this.txtEditStepBox.Name = "txtEditStepBox";
             this.txtEditStepBox.Size = new System.Drawing.Size(169, 26);
             this.txtEditStepBox.TabIndex = 7;
-            // 
-            // btnFormulate
-            // 
-            this.btnFormulate.Location = new System.Drawing.Point(305, 22);
-            this.btnFormulate.Name = "btnFormulate";
-            this.btnFormulate.Size = new System.Drawing.Size(143, 37);
-            this.btnFormulate.TabIndex = 24;
-            this.btnFormulate.Text = "Formulate";
-            this.btnFormulate.UseVisualStyleBackColor = true;
-            // 
-            // btnWash
-            // 
-            this.btnWash.Location = new System.Drawing.Point(454, 23);
-            this.btnWash.Name = "btnWash";
-            this.btnWash.Size = new System.Drawing.Size(143, 37);
-            this.btnWash.TabIndex = 25;
-            this.btnWash.Text = "Wash";
-            this.btnWash.UseVisualStyleBackColor = true;
-            // 
-            // btnPurge
-            // 
-            this.btnPurge.Location = new System.Drawing.Point(603, 23);
-            this.btnPurge.Name = "btnPurge";
-            this.btnPurge.Size = new System.Drawing.Size(143, 37);
-            this.btnPurge.TabIndex = 26;
-            this.btnPurge.Text = "Purge";
-            this.btnPurge.UseVisualStyleBackColor = true;
             // 
             // pSet1Check
             // 
@@ -621,6 +632,26 @@ namespace CSSample
             this.pSet2Check.UseVisualStyleBackColor = true;
             this.pSet2Check.CheckedChanged += new System.EventHandler(this.pSet2Check_CheckedChanged);
             // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(640, 84);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(138, 34);
+            this.btnStop.TabIndex = 13;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnResume
+            // 
+            this.btnResume.Location = new System.Drawing.Point(640, 121);
+            this.btnResume.Name = "btnResume";
+            this.btnResume.Size = new System.Drawing.Size(138, 34);
+            this.btnResume.TabIndex = 14;
+            this.btnResume.Text = "Resume";
+            this.btnResume.UseVisualStyleBackColor = true;
+            this.btnResume.Click += new System.EventHandler(this.btnResume_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -633,7 +664,7 @@ namespace CSSample
             this.Controls.Add(this.txtEditStepBox);
             this.Controls.Add(this.btnSaveStep);
             this.Controls.Add(this.btnEditStep);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.stepSelect);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -695,7 +726,7 @@ namespace CSSample
         private Button btnInit;
         private Button btnPrime;
         private ListBox listBox2;
-        private ComboBox comboBox1;
+        private ComboBox stepSelect;
         private Button btnEditStep;
         private Button btnSaveStep;
         private TextBox txtEditStepBox;
@@ -706,6 +737,8 @@ namespace CSSample
         private CheckBox pSet4Check;
         private CheckBox pSet3Check;
         private CheckBox pSet2Check;
+        private Button btnStop;
+        private Button btnResume;
     }
 }
 
