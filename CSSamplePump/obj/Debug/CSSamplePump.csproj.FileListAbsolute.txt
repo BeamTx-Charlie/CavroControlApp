@@ -39,3 +39,16 @@ C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\bin\Debug\CSSample.exe
 C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\bin\Debug\CSSample.pdb
 C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\CSSamplePump.csproj.CopyComplete
 C:\Users\Hamilton\source\repos\CSSamplePump\CSSamplePump\obj\Debug\Interop.PUMPCOMMSERVERLib.dll
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.AssemblyReference.cache
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.SuggestedBindingRedirects.cache
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.ResolveComReference.cache
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSample.Form1.resources
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSample.Properties.Resources.resources
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.GenerateResource.cache
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.CoreCompileInputs.cache
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSample.exe
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSample.pdb
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\bin\Debug\CSSample.exe.config
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\bin\Debug\CSSample.exe
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\bin\Debug\CSSample.pdb
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.CopyComplete
