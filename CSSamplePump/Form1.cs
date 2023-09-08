@@ -20,6 +20,7 @@ namespace CSSample
         }
 
 
+
         private string[] INIT = { "Z0R" };
         private string[] PRIMELIPID = { "I2R", "V1200R", "A2900R", "V1200R", "I1R", "A0R", "I2R", "A6000R"};
         private string[] PRIMECITRATE = { "I3R", "V1200R", "A750R", "V1200R", "I4R", "A0R", "I3R", "A501R"};
@@ -47,35 +48,27 @@ namespace CSSample
             {
                 if (chkLog.Checked == true)
                 {
-                    //pumpServer.PumpSetLogWnd(listBox1.Handle.ToInt32());
-                    //pumpServer2.PumpSetLogWnd(listBox1.Handle.ToInt32());
+                    citratePumps.PumpSetLogWnd(listBox1.Handle.ToInt32());
+                    lipidPumps.PumpSetLogWnd(listBox1.Handle.ToInt32());
                 }
 
                 //Specify the baud rate
                 if (cmbBaudRate.Text == "38400")
                 {
-                    //pumpServer.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud38400;
-                    //pumpServer2.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud38400;
+                    citratePumps.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud38400;
+                    lipidPumps.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud38400;
                 }
                 else
                 {
-                    //pumpServer.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
-                    //pumpServer2.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
+                    citratePumps.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
+                    lipidPumps.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
                 }
 
                 //Open the specified COM port and declare variables for each pump
-                
-                string initsuccess = "";
-                //pumpServer.PumpInitComm(byte.Parse(txtComPort.Text));
-                //pumpServer2.PumpInitComm(byte.Parse(txtComPort2.Text));
-                //pump1 - set the initialize output to the right valve when looking head on
-                //port 1 is the 1pm position and remaining valves are clockwise
-                //pumpServer2.PumpSendCommand("Z0R", byte.Parse(1.ToString()), initsuccess);
-                //pumpServer.PumpSendCommand("Z0R", byte.Parse(1.ToString()), initsuccess);
-                //pumpServer2.PumpWaitForAll();
-                //pumpServer.PumpWaitForAll();
-                //pumpServer2.PumpSendCommand("Z0R", byte.Parse(2.ToString()), initsuccess);
-                //pumpServer.PumpSendCommand("Z0R", byte.Parse(2.ToString()), initsuccess);
+                citratePumps.PumpInitComm(byte.Parse(txtComPort.Text));
+                lipidPumps.PumpInitComm(byte.Parse(txtComPort2.Text));
+
+
             }
             catch (System.Runtime.InteropServices.COMException err)
             {
@@ -88,7 +81,7 @@ namespace CSSample
 
         //Converting values to be sent to the pump
 
-        private async void cmdSendCommand_Click(object sender, EventArgs e)
+        private void cmdSendCommand_Click(object sender, EventArgs e)
         {
             int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (250);
             int pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (1000);
@@ -106,38 +99,79 @@ namespace CSSample
         }
 
         //Parses list of commands for action and complete one at a time
-        public async Task<string> sendCommandAsync(string[] commands, string pumpNum, string pumpType)
+        private async Task<string> sendCommandAsync(string[] commands, string pumpNum, PUMPCOMMSERVERLib.PumpCommClass pumpserver, CancellationToken c, CancellationTokenSource cts)
         {
+            
             string status = "";
-            foreach (string command in commands)
+            try
             {
-                    //pumpserver.PumpSendCommand(command, byte.Parse(pumpNum), status);
-                    listBox1.Items.Add("Sending: " + command + " pump number: " + pumpNum + " pump type: " + pumpType);
+                foreach (string command in commands)
+                {
+                    c.ThrowIfCancellationRequested();
+                    await Task.Delay(100);
+                    pumpserver.PumpSendCommand(command, byte.Parse(pumpNum), status);
                     listBox1.TopIndex = listBox1.Items.Count - 1;
-                    await Task.Delay(1000);
+                    pumpserver.PumpWaitForDevice(byte.Parse(pumpNum));
+                    if (status != "")
+                    {
+                        listBox1.Items.Add("Error! - " + status);
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                        cts.Cancel();
+                        throw new Exception(status);
+                    }
+                    c.ThrowIfCancellationRequested();
+                }
             }
-            return pumpNum;
+            catch when (c.IsCancellationRequested)
+            {
+                listBox1.Items.Add("Operation cancelled successfully");
+                status = "error";
+            }
+                
+
+            return status;
         }
 
         //Init Button Click
-        private void btnInit_Click(object sender, EventArgs e)
+        private async void btnInit_Click(object sender, EventArgs e)
         {
 
-            InitializeAllPumps(pumps);
+            await InitializeAllPumps(pumps);
+            
         }
 
         //initializes pairs of pumps simultaneously
-        private async void InitializeAllPumps(int[] pumps)
+        private async Task InitializeAllPumps(int[] pumps)
         {
-            var tasks = new List<Task<string>>();
+
             foreach (int pump in pumps)
             {
-                var response = sendCommandAsync(INIT, pump.ToString(), "Citrate");
-                tasks.Add(response);
-                response = sendCommandAsync(INIT, pump.ToString(), "Lipid");
-                tasks.Add(response);
-                await Task.WhenAll(tasks);
+                CancellationTokenSource cts = new CancellationTokenSource();
+                var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps, cts.Token, cts);
+                try
+                {
+                    await Task.WhenAll(taskCitrate, taskLipid);
+                    if (cts.IsCancellationRequested)
+                    {
+                        cts.Dispose();
+                        cts = new CancellationTokenSource();
+                    }
+                    else
+                    {
+                        cts.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cts.Cancel();
+                    listBox1.Items.Add(ex.ToString());
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
+                
             }
+            listBox1.Items.Add("Init Complete");
+            listBox1.TopIndex = listBox1.Items.Count - 1;
         }
 
         //Init Prime Click
@@ -149,14 +183,34 @@ namespace CSSample
         //Primes Pairs of Pumps Simultaneously
         private async void PrimeAllPumps(int[] pumps)
         {
+
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
             {
-                var response = sendCommandAsync(PRIMECITRATE, pump.ToString(), "Citrate");
-                tasks.Add(response);
-                response = sendCommandAsync(PRIMELIPID, pump.ToString(), "Lipid");
-                tasks.Add(response);
-                await Task.WhenAll(tasks);
+                CancellationTokenSource cts = new CancellationTokenSource();
+                var taskCitrate = sendCommandAsync(PRIMECITRATE, pump.ToString(), citratePumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(PRIMELIPID, pump.ToString(), lipidPumps, cts.Token, cts);
+                try
+                {
+                    await Task.WhenAll(taskCitrate, taskLipid);
+                    if (cts.IsCancellationRequested)
+                    {
+                        cts.Dispose();
+                        cts = new CancellationTokenSource();
+                    }
+                    else
+                    {
+                        cts.Dispose();
+                        listBox1.Items.Add("Prime Complete");
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cts.Cancel();
+                    listBox1.Items.Add(ex.ToString());
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
             }
         }
 
@@ -172,11 +226,30 @@ namespace CSSample
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
             {
-                var response = sendCommandAsync(WASHCITRATE, pump.ToString(), "Citrate");
-                tasks.Add(response);
-                response = sendCommandAsync(WASHLIPID, pump.ToString(), "Lipid");
-                tasks.Add(response);
-                await Task.WhenAll(tasks);
+                CancellationTokenSource cts = new CancellationTokenSource();
+                var taskCitrate = sendCommandAsync(WASHCITRATE, pump.ToString(), citratePumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(WASHCITRATE, pump.ToString(), lipidPumps, cts.Token, cts);
+                try
+                {
+                    await Task.WhenAll(taskCitrate, taskLipid);
+                    if (cts.IsCancellationRequested)
+                    {
+                        cts.Dispose();
+                        cts = new CancellationTokenSource();
+                    }
+                    else
+                    {
+                        cts.Dispose();
+                        listBox1.Items.Add("Wash Complete");
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cts.Cancel();
+                    listBox1.Items.Add(ex.ToString());
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
             }
         }
 
@@ -198,17 +271,37 @@ namespace CSSample
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
             {
-                var response = sendCommandAsync(FORMULATECITRATE, pump.ToString(), "Citrate");
-                tasks.Add(response);
-                response = sendCommandAsync(FORMULATELIPID, pump.ToString(), "Lipid");
-                tasks.Add(response);
-                await Task.WhenAll(tasks);
+                CancellationTokenSource cts = new CancellationTokenSource();
+                var taskCitrate = sendCommandAsync(FORMULATECITRATE, pump.ToString(), citratePumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(FORMULATELIPID, pump.ToString(), lipidPumps, cts.Token, cts);
+                try
+                {
+                    await Task.WhenAll(taskCitrate, taskLipid);
+                    if (cts.IsCancellationRequested)
+                    {
+                        cts.Dispose();
+                        cts = new CancellationTokenSource();
+                    }
+                    else
+                    {
+                        cts.Dispose();
+                        listBox1.Items.Add("Formulation Complete");
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cts.Cancel();
+                    listBox1.Items.Add(ex.ToString());
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
             }
         }
 
         //Send Manual Command Click
         private async void btnSendCommand_Click(object sender, EventArgs e)
         {
+            CancellationTokenSource cts = new CancellationTokenSource();
             string phaseSelect = phaseSelectDrop.SelectedItem.ToString();
             string pumpSelect = pumpNumDrop.SelectedItem.ToString();
             string[] command = { txtManCommand.Text };
@@ -216,16 +309,56 @@ namespace CSSample
 
             if (phaseSelect == "Citrate")
             {
-                var answer = sendCommandAsync(command, pumpSelect, "Citrate");
+                var answer = sendCommandAsync(command, pumpSelect, citratePumps, cts.Token, cts);
                 tasks.Add(answer);
-                await Task.WhenAll(tasks);
+                try
+                {
+                    await Task.WhenAll(tasks);
+                    if (cts.IsCancellationRequested)
+                    {
+                        cts.Dispose();
+                        cts = new CancellationTokenSource();
+                    }
+                    else
+                    {
+                        cts.Dispose();
+                        listBox1.Items.Add("Command Complete");
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cts.Cancel();
+                    listBox1.Items.Add(ex.ToString());
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
             }
 
             if (phaseSelect == "Lipid")
             {
-                var answer = sendCommandAsync(command, pumpSelect, "Lipid");
+                var answer = sendCommandAsync(command, pumpSelect, lipidPumps, cts.Token, cts);
                 tasks.Add(answer);
-                await Task.WhenAll(tasks);
+                try
+                {
+                    await Task.WhenAll(tasks);
+                    if (cts.IsCancellationRequested)
+                    {
+                        cts.Dispose();
+                        cts = new CancellationTokenSource();
+                    }
+                    else
+                    {
+                        cts.Dispose();
+                        listBox1.Items.Add("Command Complete");
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cts.Cancel();
+                    listBox1.Items.Add(ex.ToString());
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
             }
         }
 
@@ -443,7 +576,8 @@ namespace CSSample
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            stopStatus = 1;
+            CancellationTokenSource cts = new CancellationTokenSource();
+            cts.Cancel();
         }
 
         private void btnResume_Click(object sender, EventArgs e)
