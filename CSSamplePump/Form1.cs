@@ -22,7 +22,7 @@ namespace CSSample
 
 
         private string[] INIT = { "Z0R" };
-        private string[] PRIMELIPID = { "I2R", "V1200R", "A2900R", "V1200R", "I1R", "A0R", "I2R", "A6000R"};
+        private string[] PRIMELIPID = { "I2R", "V1200R", "A2900R", "V1200R", "I1R", "A0R", "I2R", "A1000R"};
         private string[] PRIMECITRATE = { "I3R", "V1200R", "A750R", "V1200R", "I4R", "A0R", "I3R", "A501R"};
         private string[] WASHLIPID = {"I4R", "V1200R", "A2900R", "V1200R", "I2R", "A0R", "I4R", "A2900R", "I2R", "A0R",
                                         "I4R", "A2900R", "I2R", "A0R", "A2900R", "I3R", "A0R", "I2R","A2900R", "I3R", "A0R"};
@@ -99,7 +99,7 @@ namespace CSSample
         }
 
         //Parses list of commands for action and complete one at a time
-        private async Task<string> sendCommandAsync(string[] commands, string pumpNum, PUMPCOMMSERVERLib.PumpCommClass pumpserver, CancellationToken c, CancellationTokenSource cts)
+        private async Task<string> sendCommandAsync(string[] commands, string pumpNum, PUMPCOMMSERVERLib.PumpCommClass pumpserver, PUMPCOMMSERVERLib.PumpCommClass pumpservertwin, CancellationToken c, CancellationTokenSource cts)
         {
             
             string status = "";
@@ -109,9 +109,15 @@ namespace CSSample
                 {
                     c.ThrowIfCancellationRequested();
                     await Task.Delay(100);
-                    pumpserver.PumpSendCommand(command, byte.Parse(pumpNum), status);
+                    pumpserver.PumpSendNoWait(command, byte.Parse(pumpNum));
+                    await Task.Delay(100);
                     listBox1.TopIndex = listBox1.Items.Count - 1;
-                    pumpserver.PumpWaitForDevice(byte.Parse(pumpNum));
+                    var twinstatus = pumpservertwin.PumpCheckDevStatus(byte.Parse(pumpNum));
+                    if (twinstatus != 1)
+                    {
+                        await Task.Delay(2000);
+                        pumpservertwin.PumpWaitForDevice(byte.Parse(pumpNum));
+                    }
                     if (status != "")
                     {
                         listBox1.Items.Add("Error! - " + status);
@@ -147,8 +153,8 @@ namespace CSSample
             foreach (int pump in pumps)
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
-                var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps, cts.Token, cts);
-                var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps, cts.Token, cts);
+                var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
                 try
                 {
                     await Task.WhenAll(taskCitrate, taskLipid);
@@ -188,8 +194,8 @@ namespace CSSample
             foreach (int pump in pumps)
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
-                var taskCitrate = sendCommandAsync(PRIMECITRATE, pump.ToString(), citratePumps, cts.Token, cts);
-                var taskLipid = sendCommandAsync(PRIMELIPID, pump.ToString(), lipidPumps, cts.Token, cts);
+                var taskCitrate = sendCommandAsync(PRIMECITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(PRIMELIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
                 try
                 {
                     await Task.WhenAll(taskCitrate, taskLipid);
@@ -227,8 +233,8 @@ namespace CSSample
             foreach (int pump in pumps)
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
-                var taskCitrate = sendCommandAsync(WASHCITRATE, pump.ToString(), citratePumps, cts.Token, cts);
-                var taskLipid = sendCommandAsync(WASHCITRATE, pump.ToString(), lipidPumps, cts.Token, cts);
+                var taskCitrate = sendCommandAsync(WASHCITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(WASHCITRATE, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
                 try
                 {
                     await Task.WhenAll(taskCitrate, taskLipid);
@@ -272,8 +278,8 @@ namespace CSSample
             foreach (int pump in pumps)
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
-                var taskCitrate = sendCommandAsync(FORMULATECITRATE, pump.ToString(), citratePumps, cts.Token, cts);
-                var taskLipid = sendCommandAsync(FORMULATELIPID, pump.ToString(), lipidPumps, cts.Token, cts);
+                var taskCitrate = sendCommandAsync(FORMULATECITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(FORMULATELIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
                 try
                 {
                     await Task.WhenAll(taskCitrate, taskLipid);
@@ -304,16 +310,16 @@ namespace CSSample
             CancellationTokenSource cts = new CancellationTokenSource();
             string phaseSelect = phaseSelectDrop.SelectedItem.ToString();
             string pumpSelect = pumpNumDrop.SelectedItem.ToString();
-            string[] command = { txtManCommand.Text };
+            string command = txtManCommand.Text;
             var tasks = new List<Task<string>>();
+            var answer = "";
 
             if (phaseSelect == "Citrate")
             {
-                var answer = sendCommandAsync(command, pumpSelect, citratePumps, cts.Token, cts);
-                tasks.Add(answer);
+                citratePumps.PumpSendCommand(command, byte.Parse(pumpSelect),answer);
+                
                 try
                 {
-                    await Task.WhenAll(tasks);
                     if (cts.IsCancellationRequested)
                     {
                         cts.Dispose();
@@ -336,11 +342,10 @@ namespace CSSample
 
             if (phaseSelect == "Lipid")
             {
-                var answer = sendCommandAsync(command, pumpSelect, lipidPumps, cts.Token, cts);
-                tasks.Add(answer);
+                lipidPumps.PumpSendCommand(command, byte.Parse(pumpSelect), answer);
+                
                 try
                 {
-                    await Task.WhenAll(tasks);
                     if (cts.IsCancellationRequested)
                     {
                         cts.Dispose();
