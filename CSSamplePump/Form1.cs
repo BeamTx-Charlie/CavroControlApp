@@ -30,7 +30,8 @@ namespace CSSample
                                         "I1R", "A2900R", "I3R", "A0R", "A2900R", "I2R", "A0R", "I3R","A2900R", "I2R", "A0R" };
         private string[] FORMULATELIPID = {"I3R" ,"V100R" , "A1R"};
         private string[] FORMULATECITRATE = {"I2R" ,"V100R" , "A1R"};
-        private string[] PURGE = { };
+        private string[] PURGELIPID = { "I2R,V1200R,A2900R", "I1R,A0R", "I4R,A2900R" , "I1R,A0R", "I2R,A2900R", "I4R", "A0R" };
+        private string[] PURGECITRATE = { "I3R,V1200R,A2900R", "I4R,A0R", "I1R,A2900R", "I4R,A0R", "I3R,A2900R", "I1R", "A0R" };
         private int[] pumps = {1};
         private int stopStatus = 0;
 
@@ -234,7 +235,7 @@ namespace CSSample
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 var taskCitrate = sendCommandAsync(WASHCITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
-                var taskLipid = sendCommandAsync(WASHCITRATE, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(WASHLIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
                 try
                 {
                     await Task.WhenAll(taskCitrate, taskLipid);
@@ -292,6 +293,44 @@ namespace CSSample
                     {
                         cts.Dispose();
                         listBox1.Items.Add("Formulation Complete");
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    cts.Cancel();
+                    listBox1.Items.Add(ex.ToString());
+                    listBox1.TopIndex = listBox1.Items.Count - 1;
+                }
+            }
+        }
+
+        private void btnPurge_Click(object sender, EventArgs e)
+        {
+            PurgeAllPumps(pumps);
+        }
+
+        //Washed Pairs of Pumps Simultaneously
+        private async void PurgeAllPumps(int[] pumps)
+        {
+            var tasks = new List<Task<string>>();
+            foreach (int pump in pumps)
+            {
+                CancellationTokenSource cts = new CancellationTokenSource();
+                var taskCitrate = sendCommandAsync(PURGECITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
+                var taskLipid = sendCommandAsync(PURGELIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
+                try
+                {
+                    await Task.WhenAll(taskCitrate, taskLipid);
+                    if (cts.IsCancellationRequested)
+                    {
+                        cts.Dispose();
+                        cts = new CancellationTokenSource();
+                    }
+                    else
+                    {
+                        cts.Dispose();
+                        listBox1.Items.Add("Wash Complete");
                         listBox1.TopIndex = listBox1.Items.Count - 1;
                     }
                 }
@@ -418,8 +457,14 @@ namespace CSSample
                         listBox2.Items.Add(item);
                     }
                     break;
-                case "Purge":
-                    foreach (string item in PURGE)
+                case "Purge Lipid":
+                    foreach (string item in PURGELIPID)
+                    {
+                        listBox2.Items.Add(item);
+                    }
+                    break;
+                case "Purge Citrate":
+                    foreach (string item in PURGECITRATE)
                     {
                         listBox2.Items.Add(item);
                     }
@@ -495,9 +540,16 @@ namespace CSSample
                         listBox2.Items.Add(item);
                     }
                     break;
-                case "Purge":
-                    PURGE[index] = text;
-                    foreach (string item in PURGE)
+                case "Purge Lipid":
+                    PURGELIPID[index] = text;
+                    foreach (string item in PURGELIPID)
+                    {
+                        listBox2.Items.Add(item);
+                    }
+                    break;
+                case "Purge Citrate":
+                    PURGECITRATE[index] = text;
+                    foreach (string item in PURGECITRATE)
                     {
                         listBox2.Items.Add(item);
                     }
