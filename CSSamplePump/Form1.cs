@@ -19,7 +19,16 @@ namespace CSSample
             InitializeComponent();
         }
 
-
+        //Lipid Valve Positions (I):
+        //1 = Waste
+        //2 = Reservoire
+        //3 = T-junction
+        //4 = Wash
+        //Citrate Valve Positions (I):
+        //1 = Wash
+        //2 = T-Junction
+        //3 = Reservoire
+        //4 = Waste
 
         private string[] INIT = { "Z0R" };
         private string[] PRIMELIPID = { "I2R", "V1200R", "A2900R", "V1200R", "I1R", "A0R", "I2R", "A1000R"};
