@@ -125,7 +125,7 @@ namespace CSSample
                     var twinstatus = pumpservertwin.PumpCheckDevStatus(byte.Parse(pumpNum));
                     if (twinstatus != 1)
                     {
-                        await Task.Delay(2000);
+                        await Task.Delay(5000);
                         pumpservertwin.PumpWaitForDevice(byte.Parse(pumpNum));
                     }
                     if (status != "")
@@ -278,8 +278,8 @@ namespace CSSample
         //Formulate Pairs of Pumps Simultaneously
         private async void runFormulation(int[] pumps)
         {
-            int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (250);
-            int pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (1000);
+            int pumpLipidspeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (250);
+            int pumpCitratespeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (1000);
 
             FORMULATELIPID[1] = "V" + pumpLipidspeed + "R";
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
