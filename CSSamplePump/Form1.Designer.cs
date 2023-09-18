@@ -97,9 +97,13 @@ namespace CSSample
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pSet4Check);
+            this.groupBox1.Controls.Add(this.pSet3Check);
+            this.groupBox1.Controls.Add(this.pSet2Check);
             this.groupBox1.Controls.Add(this.btnResume);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.pumpNumDrop);
+            this.groupBox1.Controls.Add(this.pSet1Check);
             this.groupBox1.Controls.Add(this.phaseSelectDrop);
             this.groupBox1.Controls.Add(this.btnSendCommand);
             this.groupBox1.Controls.Add(this.txtManCommand);
@@ -146,7 +150,7 @@ namespace CSSample
             this.pumpNumDrop.Items.AddRange(new object[] {
             "1",
             "2"});
-            this.pumpNumDrop.Location = new System.Drawing.Point(195, 168);
+            this.pumpNumDrop.Location = new System.Drawing.Point(176, 149);
             this.pumpNumDrop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pumpNumDrop.MaxDropDownItems = 2;
             this.pumpNumDrop.Name = "pumpNumDrop";
@@ -160,7 +164,7 @@ namespace CSSample
             this.phaseSelectDrop.Items.AddRange(new object[] {
             "Lipid",
             "Citrate"});
-            this.phaseSelectDrop.Location = new System.Drawing.Point(30, 168);
+            this.phaseSelectDrop.Location = new System.Drawing.Point(26, 149);
             this.phaseSelectDrop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.phaseSelectDrop.MaxDropDownItems = 2;
             this.phaseSelectDrop.Name = "phaseSelectDrop";
@@ -181,7 +185,7 @@ namespace CSSample
             // 
             // txtManCommand
             // 
-            this.txtManCommand.Location = new System.Drawing.Point(340, 168);
+            this.txtManCommand.Location = new System.Drawing.Point(318, 149);
             this.txtManCommand.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtManCommand.Name = "txtManCommand";
             this.txtManCommand.Size = new System.Drawing.Size(284, 26);
@@ -210,8 +214,6 @@ namespace CSSample
             // chkLog
             // 
             this.chkLog.AutoSize = true;
-            this.chkLog.Checked = true;
-            this.chkLog.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLog.Location = new System.Drawing.Point(26, 103);
             this.chkLog.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkLog.Name = "chkLog";
@@ -318,11 +320,11 @@ namespace CSSample
             this.groupBox2.Controls.Add(this.cmdSendCommand);
             this.groupBox2.Controls.Add(this.pump1Speed);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(32, 289);
+            this.groupBox2.Location = new System.Drawing.Point(32, 254);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(810, 188);
+            this.groupBox2.Size = new System.Drawing.Size(812, 181);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pump Controls";
@@ -511,11 +513,11 @@ namespace CSSample
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.listBox1);
-            this.groupBox3.Location = new System.Drawing.Point(32, 486);
+            this.groupBox3.Location = new System.Drawing.Point(32, 445);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Size = new System.Drawing.Size(1042, 502);
+            this.groupBox3.Size = new System.Drawing.Size(1042, 535);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
@@ -527,16 +529,16 @@ namespace CSSample
             this.listBox1.Location = new System.Drawing.Point(12, 29);
             this.listBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(1020, 464);
+            this.listBox1.Size = new System.Drawing.Size(1020, 484);
             this.listBox1.TabIndex = 0;
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 20;
-            this.listBox2.Location = new System.Drawing.Point(862, 71);
+            this.listBox2.Location = new System.Drawing.Point(863, 64);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(169, 304);
+            this.listBox2.Size = new System.Drawing.Size(169, 264);
             this.listBox2.TabIndex = 3;
             // 
             // stepSelect
@@ -559,7 +561,7 @@ namespace CSSample
             // 
             // btnEditStep
             // 
-            this.btnEditStep.Location = new System.Drawing.Point(861, 420);
+            this.btnEditStep.Location = new System.Drawing.Point(860, 364);
             this.btnEditStep.Name = "btnEditStep";
             this.btnEditStep.Size = new System.Drawing.Size(170, 32);
             this.btnEditStep.TabIndex = 5;
@@ -569,7 +571,7 @@ namespace CSSample
             // 
             // btnSaveStep
             // 
-            this.btnSaveStep.Location = new System.Drawing.Point(862, 458);
+            this.btnSaveStep.Location = new System.Drawing.Point(860, 402);
             this.btnSaveStep.Name = "btnSaveStep";
             this.btnSaveStep.Size = new System.Drawing.Size(170, 32);
             this.btnSaveStep.TabIndex = 6;
@@ -579,7 +581,7 @@ namespace CSSample
             // 
             // txtEditStepBox
             // 
-            this.txtEditStepBox.Location = new System.Drawing.Point(861, 383);
+            this.txtEditStepBox.Location = new System.Drawing.Point(861, 334);
             this.txtEditStepBox.Name = "txtEditStepBox";
             this.txtEditStepBox.Size = new System.Drawing.Size(169, 26);
             this.txtEditStepBox.TabIndex = 7;
@@ -589,7 +591,7 @@ namespace CSSample
             this.pSet1Check.AutoSize = true;
             this.pSet1Check.Checked = true;
             this.pSet1Check.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.pSet1Check.Location = new System.Drawing.Point(46, 252);
+            this.pSet1Check.Location = new System.Drawing.Point(25, 194);
             this.pSet1Check.Name = "pSet1Check";
             this.pSet1Check.Size = new System.Drawing.Size(73, 24);
             this.pSet1Check.TabIndex = 8;
@@ -600,7 +602,7 @@ namespace CSSample
             // pSet4Check
             // 
             this.pSet4Check.AutoSize = true;
-            this.pSet4Check.Location = new System.Drawing.Point(280, 252);
+            this.pSet4Check.Location = new System.Drawing.Point(263, 194);
             this.pSet4Check.Name = "pSet4Check";
             this.pSet4Check.Size = new System.Drawing.Size(73, 24);
             this.pSet4Check.TabIndex = 9;
@@ -611,7 +613,7 @@ namespace CSSample
             // pSet3Check
             // 
             this.pSet3Check.AutoSize = true;
-            this.pSet3Check.Location = new System.Drawing.Point(202, 252);
+            this.pSet3Check.Location = new System.Drawing.Point(183, 194);
             this.pSet3Check.Name = "pSet3Check";
             this.pSet3Check.Size = new System.Drawing.Size(73, 24);
             this.pSet3Check.TabIndex = 10;
@@ -622,7 +624,7 @@ namespace CSSample
             // pSet2Check
             // 
             this.pSet2Check.AutoSize = true;
-            this.pSet2Check.Location = new System.Drawing.Point(123, 252);
+            this.pSet2Check.Location = new System.Drawing.Point(104, 194);
             this.pSet2Check.Name = "pSet2Check";
             this.pSet2Check.Size = new System.Drawing.Size(73, 24);
             this.pSet2Check.TabIndex = 11;
@@ -635,10 +637,6 @@ namespace CSSample
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1092, 994);
-            this.Controls.Add(this.pSet2Check);
-            this.Controls.Add(this.pSet3Check);
-            this.Controls.Add(this.pSet4Check);
-            this.Controls.Add(this.pSet1Check);
             this.Controls.Add(this.txtEditStepBox);
             this.Controls.Add(this.btnSaveStep);
             this.Controls.Add(this.btnEditStep);
