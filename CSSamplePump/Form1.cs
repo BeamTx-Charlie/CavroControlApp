@@ -199,6 +199,11 @@ namespace CSSample
         //Primes Pairs of Pumps Simultaneously
         private async void PrimeAllPumps(int[] pumps)
         {
+            double pumpLipidVol = ((Int32.Parse(pump1Vol.Text) / 250) * (3000));
+            double pumpCitrateVol = ((Int32.Parse(pump2Vol.Text) / 1000) * (3000));
+
+            FORMULATELIPID[7] = "A" + pumpLipidVol + "R";
+            FORMULATECITRATE[7] = "A" + pumpCitrateVol + "R";
 
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
@@ -278,8 +283,8 @@ namespace CSSample
         //Formulate Pairs of Pumps Simultaneously
         private async void runFormulation(int[] pumps)
         {
-            int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (1000);
-            int pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (1000);
+            double pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)/60) * (3000/.25));
+            double pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)/60) * (3000));
 
             FORMULATELIPID[1] = "V" + pumpLipidspeed + "R";
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";

@@ -396,18 +396,18 @@ namespace CSSample
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(159, 122);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(177, 20);
+            this.label8.Size = new System.Drawing.Size(281, 30);
             this.label8.TabIndex = 16;
-            this.label8.Text = "Pump 2 Velocity (ul/sec)";
+            this.label8.Text = "Pump 2 Velocity (mL/min)";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(154, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(177, 20);
+            this.label3.Size = new System.Drawing.Size(281, 30);
             this.label3.TabIndex = 15;
-            this.label3.Text = "Pump 1 Velocity (ul/sec)";
+            this.label3.Text = "Pump 1 Velocity (mL/min)";
             // 
             // pump2Vol
             // 
