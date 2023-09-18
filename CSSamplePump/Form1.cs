@@ -93,14 +93,16 @@ namespace CSSample
 
         private void cmdSendCommand_Click(object sender, EventArgs e)
         {
-            int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (1000);
-            int pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (1000);
+            //******Remove .25 if 1mL syringe is installed
+            double pumpLipidspeed = ((Int32.Parse(pump1Speed.Text) / 60) * (3000 / .25));
+            double pumpCitratespeed = ((Int32.Parse(pump2Speed.Text) / 60) * (3000));
 
             FORMULATELIPID[1] = "V" + pumpLipidspeed + "R";
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
 
-            string pump1Volume =  "A" + (Int32.Parse(pump1Vol.Text) * 12).ToString() + "R" ;
-            string pump2Volume =  "A" + (Int32.Parse(pump2Vol.Text) * 3).ToString() + "R" ;
+            //*****Change 250 to 1000 is 1mL syringe is installed
+            string pump1Volume =  "A" + ((Int32.Parse(pump1Vol.Text) / 250) * (3000)).ToString() + "R" ;
+            string pump2Volume =  "A" + ((Int32.Parse(pump1Vol.Text) / 1000) * (3000)).ToString() + "R" ;
 
             PRIMELIPID[PRIMELIPID.Length - 1] = pump1Volume;
             PRIMECITRATE[PRIMELIPID.Length - 1] = pump2Volume;
@@ -202,8 +204,8 @@ namespace CSSample
             double pumpLipidVol = ((Int32.Parse(pump1Vol.Text) / 250) * (3000));
             double pumpCitrateVol = ((Int32.Parse(pump2Vol.Text) / 1000) * (3000));
 
-            FORMULATELIPID[7] = "A" + pumpLipidVol + "R";
-            FORMULATECITRATE[7] = "A" + pumpCitrateVol + "R";
+            FORMULATELIPID[PRIMELIPID.Length-1] = "A" + pumpLipidVol + "R";
+            FORMULATECITRATE[PRIMECITRATE.Length-1] = "A" + pumpCitrateVol + "R";
 
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)

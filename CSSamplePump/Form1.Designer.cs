@@ -61,10 +61,6 @@ namespace CSSample
             this.btnPurge = new System.Windows.Forms.Button();
             this.btnWash = new System.Windows.Forms.Button();
             this.btnFormulate = new System.Windows.Forms.Button();
-            this.pump2delay = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.pump1delay = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pump2Vol = new System.Windows.Forms.TextBox();
@@ -301,10 +297,6 @@ namespace CSSample
             this.groupBox2.Controls.Add(this.btnFormulate);
             this.groupBox2.Controls.Add(this.btnPrime);
             this.groupBox2.Controls.Add(this.btnInit);
-            this.groupBox2.Controls.Add(this.pump2delay);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.pump1delay);
-            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.pump2Vol);
@@ -356,40 +348,6 @@ namespace CSSample
             this.btnFormulate.Text = "Formulate";
             this.btnFormulate.UseVisualStyleBackColor = true;
             this.btnFormulate.Click += new System.EventHandler(this.btnFormulate_Click);
-            // 
-            // pump2delay
-            // 
-            this.pump2delay.Location = new System.Drawing.Point(376, 148);
-            this.pump2delay.Name = "pump2delay";
-            this.pump2delay.Size = new System.Drawing.Size(100, 26);
-            this.pump2delay.TabIndex = 20;
-            this.pump2delay.Text = "1000";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(374, 122);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(142, 20);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Pump 2 Delay (ms)";
-            // 
-            // pump1delay
-            // 
-            this.pump1delay.Location = new System.Drawing.Point(376, 86);
-            this.pump1delay.Name = "pump1delay";
-            this.pump1delay.Size = new System.Drawing.Size(100, 26);
-            this.pump1delay.TabIndex = 18;
-            this.pump1delay.Text = "1100";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(374, 63);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(142, 20);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Pump 1 Delay (ms)";
             // 
             // label8
             // 
@@ -480,7 +438,7 @@ namespace CSSample
             // 
             // cmdSendCommand
             // 
-            this.cmdSendCommand.Location = new System.Drawing.Point(532, 105);
+            this.cmdSendCommand.Location = new System.Drawing.Point(391, 98);
             this.cmdSendCommand.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmdSendCommand.Name = "cmdSendCommand";
             this.cmdSendCommand.Size = new System.Drawing.Size(172, 37);
@@ -688,10 +646,6 @@ namespace CSSample
         private System.Windows.Forms.TextBox pump1Vol;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox pump1delay;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox pump2delay;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private Label label4;
         private TextBox txtComPort2;
