@@ -33,14 +33,14 @@ namespace CSSample
         private string[] INIT = { "Z0R" };
         private string[] PRIMELIPID = { "I2R", "V1200R", "A2900R", "V1200R", "I1R", "A0R", "I2R", "A1000R"};
         private string[] PRIMECITRATE = { "I3R", "V1200R", "A750R", "V1200R", "I4R", "A0R", "I3R", "A501R"};
-        private string[] WASHLIPID = {"I4R", "V1200R", "A2900R", "V1200R", "I2R", "A0R", "I4R", "A2900R", "I2R", "A0R",
-                                        "I4R", "A2900R", "I2R", "A0R", "A2900R", "I3R", "A0R", "I2R","A2900R", "I3R", "A0R"};
-        private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R" , "V1200R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
-                                        "I1R", "A2900R", "I3R", "A0R", "A2900R", "I2R", "A0R", "I3R","A2900R", "I2R", "A0R" };
+        private string[] WASHLIPID = {"I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R",
+                                         "A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
+        private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
+                                         "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
         private string[] FORMULATELIPID = {"I3R" ,"V100R" , "A1R"};
         private string[] FORMULATECITRATE = {"I2R" ,"V100R" , "A1R"};
-        private string[] PURGELIPID = { "I2R,V1200R,A2900R", "I1R,A0R", "I4R,A2900R" , "I1R,A0R", "I2R,A2900R", "I4R", "A0R" };
-        private string[] PURGECITRATE = { "I3R,V1200R,A2900R", "I4R,A0R", "I1R,A2900R", "I4R,A0R", "I3R,A2900R", "I1R", "A0R" };
+        private string[] PURGELIPID = { "I2R","V1200R","A2900R","I1R","A0R","I3R","A2900R","I1R","A0R"};
+        private string[] PURGECITRATE = { "I3R","V1200R","A2900R","I4R","A0R","I2R","A2900R","I4R","A0R"};
         private int[] pumps = {1};
         private int stopStatus = 0;
 
@@ -93,7 +93,7 @@ namespace CSSample
 
         private void cmdSendCommand_Click(object sender, EventArgs e)
         {
-            int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (250);
+            int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (1000);
             int pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (1000);
 
             FORMULATELIPID[1] = "V" + pumpLipidspeed + "R";
@@ -120,12 +120,12 @@ namespace CSSample
                     c.ThrowIfCancellationRequested();
                     await Task.Delay(100);
                     pumpserver.PumpSendNoWait(command, byte.Parse(pumpNum));
-                    await Task.Delay(100);
+                    await Task.Delay(1000);
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                     var twinstatus = pumpservertwin.PumpCheckDevStatus(byte.Parse(pumpNum));
                     if (twinstatus != 1)
                     {
-                        await Task.Delay(5000);
+                        await Task.Delay(4000);
                         pumpservertwin.PumpWaitForDevice(byte.Parse(pumpNum));
                     }
                     if (status != "")
@@ -309,8 +309,8 @@ namespace CSSample
         //Formulate Pairs of Pumps Simultaneously
         private async Task<string> runFormulation(int pump)
         {
-            int pumpLipidspeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (250);
-            int pumpCitratespeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (1000);
+            int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (1000);
+            int pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (1000);
 
             FORMULATELIPID[1] = "V" + pumpLipidspeed + "R";
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
