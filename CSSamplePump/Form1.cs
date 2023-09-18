@@ -151,22 +151,17 @@ namespace CSSample
         //Init Button Click
         private async void btnInit_Click(object sender, EventArgs e)
         {
-            var TaskList = new List<Task>();
 
-            foreach (int pump in pumps)
-            {
-                var LastTask = InitializeAllPumps(pump);
-                LastTask.Start();
-                TaskList.Add(LastTask);
-            }
-            
-            await Task.WhenAll(TaskList.ToArray());
+            await InitializeAllPumps(pumps);
             
         }
 
         //initializes pairs of pumps simultaneously
-        private async Task<string> InitializeAllPumps(int pump)
+        private async Task InitializeAllPumps(int[] pumps)
         {
+
+            foreach (int pump in pumps)
+            {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
                 var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
@@ -189,34 +184,25 @@ namespace CSSample
                     listBox1.Items.Add(ex.ToString());
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
-
+                
+            }
             listBox1.Items.Add("Init Complete");
             listBox1.TopIndex = listBox1.Items.Count - 1;
-
-            return "sucess";
         }
 
         //Init Prime Click
-        private async void btnPrime_Click(object sender, EventArgs e)
+        private void btnPrime_Click(object sender, EventArgs e)
         {
-            var TaskList = new List<Task>();
-
-            foreach (int pump in pumps)
-            {
-                var LastTask = PrimeAllPumps(pump);
-                LastTask.Start();
-                TaskList.Add(LastTask);
-            }
-
-            await Task.WhenAll(TaskList.ToArray());
+            PrimeAllPumps(pumps);
         }
 
         //Primes Pairs of Pumps Simultaneously
-        private async Task<string> PrimeAllPumps(int pump)
+        private async void PrimeAllPumps(int[] pumps)
         {
 
             var tasks = new List<Task<string>>();
-
+            foreach (int pump in pumps)
+            {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 var taskCitrate = sendCommandAsync(PRIMECITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
                 var taskLipid = sendCommandAsync(PRIMELIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
@@ -241,29 +227,21 @@ namespace CSSample
                     listBox1.Items.Add(ex.ToString());
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
-            return "success";
+            }
         }
 
         //Wash Button Click
-        private async void btnWash_Click(object sender, EventArgs e)
+        private void btnWash_Click(object sender, EventArgs e)
         {
-            var TaskList = new List<Task>();
-
-            foreach (int pump in pumps)
-            {
-                var LastTask = WashAllPumps(pump);
-                LastTask.Start();
-                TaskList.Add(LastTask);
-            }
-
-            await Task.WhenAll(TaskList.ToArray());
+            WashAllPumps(pumps);
         }
 
         //Washed Pairs of Pumps Simultaneously
-        private async Task<string> WashAllPumps(int pump)
+        private async void WashAllPumps(int[] pumps)
         {
             var tasks = new List<Task<string>>();
-
+            foreach (int pump in pumps)
+            {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 var taskCitrate = sendCommandAsync(WASHCITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
                 var taskLipid = sendCommandAsync(WASHLIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
@@ -288,26 +266,17 @@ namespace CSSample
                     listBox1.Items.Add(ex.ToString());
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
-            return "success";
+            }
         }
 
         //Formulation Button Click
-        private async void btnFormulate_Click(object sender, EventArgs e)
+        private void btnFormulate_Click(object sender, EventArgs e)
         {
-            var TaskList = new List<Task>();
-
-            foreach (int pump in pumps)
-            {
-                var LastTask = runFormulation(pump);
-                LastTask.Start();
-                TaskList.Add(LastTask);
-            }
-
-            await Task.WhenAll(TaskList.ToArray());
+            runFormulation(pumps);
         }
 
         //Formulate Pairs of Pumps Simultaneously
-        private async Task<string> runFormulation(int pump)
+        private async void runFormulation(int[] pumps)
         {
             int pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)) * (3000)) / (1000);
             int pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)) * (3000)) / (1000);
@@ -316,7 +285,8 @@ namespace CSSample
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
 
             var tasks = new List<Task<string>>();
-
+            foreach (int pump in pumps)
+            {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 var taskCitrate = sendCommandAsync(FORMULATECITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
                 var taskLipid = sendCommandAsync(FORMULATELIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
@@ -341,28 +311,20 @@ namespace CSSample
                     listBox1.Items.Add(ex.ToString());
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
-            return "success";
+            }
         }
 
-        private async void btnPurge_Click(object sender, EventArgs e)
+        private void btnPurge_Click(object sender, EventArgs e)
         {
-            var TaskList = new List<Task>();
-
-            foreach (int pump in pumps)
-            {
-                var LastTask = PurgeAllPumps(pump);
-                LastTask.Start();
-                TaskList.Add(LastTask);
-            }
-
-            await Task.WhenAll(TaskList.ToArray());
+            PurgeAllPumps(pumps);
         }
 
         //Washed Pairs of Pumps Simultaneously
-        private async Task<string> PurgeAllPumps(int pump)
+        private async void PurgeAllPumps(int[] pumps)
         {
             var tasks = new List<Task<string>>();
-
+            foreach (int pump in pumps)
+            {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 var taskCitrate = sendCommandAsync(PURGECITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
                 var taskLipid = sendCommandAsync(PURGELIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
@@ -387,7 +349,7 @@ namespace CSSample
                     listBox1.Items.Add(ex.ToString());
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
-            return "success";
+            }
         }
 
         //Send Manual Command Click
