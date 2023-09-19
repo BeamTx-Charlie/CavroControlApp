@@ -59,7 +59,9 @@ namespace CSSample
                 if (chkLog.Checked == true)
                 {
                     citratePumps.PumpSetLogWnd(listBox1.Handle.ToInt32());
+                    citratePumps2.PumpSetLogWnd(listBox1.Handle.ToInt32());
                     lipidPumps.PumpSetLogWnd(listBox1.Handle.ToInt32());
+                    lipidPumps2.PumpSetLogWnd(listBox1.Handle.ToInt32());
                 }
 
                 //Specify the baud rate
@@ -71,12 +73,19 @@ namespace CSSample
                 else
                 {
                     citratePumps.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
+                    citratePumps2.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
                     lipidPumps.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
+                    lipidPumps2.BaudRate = PUMPCOMMSERVERLib.EBaudRate.Baud9600;
                 }
 
                 //Open the specified COM port and declare variables for each pump
-                citratePumps.PumpInitComm(byte.Parse(txtComPort.Text));
-                lipidPumps.PumpInitComm(byte.Parse(txtComPort2.Text));
+                char[] citrateCOM = txtComPort.Text.ToCharArray();
+                char[] lipidCOM = txtComPort2.Text.ToCharArray();
+
+                citratePumps.PumpInitComm(byte.Parse(citrateCOM[0].ToString()));
+                citratePumps2.PumpInitComm(byte.Parse(citrateCOM[1].ToString()));
+                lipidPumps.PumpInitComm(byte.Parse(lipidCOM[0].ToString()));
+                lipidPumps2.PumpInitComm(byte.Parse(lipidCOM[1].ToString()));
 
 
             }
@@ -165,11 +174,22 @@ namespace CSSample
             foreach (int pump in pumps)
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
-                var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
-                var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
+
+                if (pump == 1 || pump == 2)
+                {
+                    var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
+                    var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
+                    await Task.WhenAll(taskCitrate, taskLipid);
+                }
+                if (pump == 3 || pump == 4)
+                {
+                    var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps2, lipidPumps2, cts.Token, cts);
+                    var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps2, citratePumps2, cts.Token, cts);
+                    await Task.WhenAll(taskCitrate, taskLipid);
+                }
+
                 try
                 {
-                    await Task.WhenAll(taskCitrate, taskLipid);
                     if (cts.IsCancellationRequested)
                     {
                         cts.Dispose();
@@ -360,7 +380,7 @@ namespace CSSample
         }
 
         //Send Manual Command Click
-        private async void btnSendCommand_Click(object sender, EventArgs e)
+        private void btnSendCommand_Click(object sender, EventArgs e)
         {
             CancellationTokenSource cts = new CancellationTokenSource();
             string phaseSelect = phaseSelectDrop.SelectedItem.ToString();
@@ -656,6 +676,11 @@ namespace CSSample
         private void btnResume_Click(object sender, EventArgs e)
         {
             stopStatus = 0;
+        }
+
+        private void txtComPort2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -198,10 +198,12 @@ namespace CSSample
             // 
             this.txtComPort2.Location = new System.Drawing.Point(340, 103);
             this.txtComPort2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtComPort2.Multiline = true;
             this.txtComPort2.Name = "txtComPort2";
-            this.txtComPort2.Size = new System.Drawing.Size(85, 26);
+            this.txtComPort2.Size = new System.Drawing.Size(85, 53);
             this.txtComPort2.TabIndex = 6;
-            this.txtComPort2.Text = "8";
+            this.txtComPort2.Text = "8\r\n9\r\n";
+            this.txtComPort2.TextChanged += new System.EventHandler(this.txtComPort2_TextChanged);
             // 
             // chkLog
             // 
@@ -219,7 +221,7 @@ namespace CSSample
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(477, 60);
+            this.label2.Location = new System.Drawing.Point(529, 17);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(86, 20);
@@ -243,7 +245,7 @@ namespace CSSample
             this.cmbBaudRate.Items.AddRange(new object[] {
             "9600",
             "38400"});
-            this.cmbBaudRate.Location = new System.Drawing.Point(573, 48);
+            this.cmbBaudRate.Location = new System.Drawing.Point(623, 14);
             this.cmbBaudRate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbBaudRate.Name = "cmbBaudRate";
             this.cmbBaudRate.Size = new System.Drawing.Size(181, 28);
@@ -254,10 +256,11 @@ namespace CSSample
             // 
             this.txtComPort.Location = new System.Drawing.Point(340, 49);
             this.txtComPort.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtComPort.Multiline = true;
             this.txtComPort.Name = "txtComPort";
-            this.txtComPort.Size = new System.Drawing.Size(85, 26);
+            this.txtComPort.Size = new System.Drawing.Size(85, 44);
             this.txtComPort.TabIndex = 1;
-            this.txtComPort.Text = "3";
+            this.txtComPort.Text = "3\r\n4";
             // 
             // cmdOpenCom
             // 
@@ -354,7 +357,7 @@ namespace CSSample
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(159, 122);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(281, 30);
+            this.label8.Size = new System.Drawing.Size(187, 20);
             this.label8.TabIndex = 16;
             this.label8.Text = "Pump 2 Velocity (mL/min)";
             // 
@@ -363,7 +366,7 @@ namespace CSSample
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(154, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(281, 30);
+            this.label3.Size = new System.Drawing.Size(187, 20);
             this.label3.TabIndex = 15;
             this.label3.Text = "Pump 1 Velocity (mL/min)";
             // 
@@ -640,6 +643,8 @@ namespace CSSample
 
         public PUMPCOMMSERVERLib.PumpCommClass citratePumps = new PUMPCOMMSERVERLib.PumpCommClass();
         public PUMPCOMMSERVERLib.PumpCommClass lipidPumps = new PUMPCOMMSERVERLib.PumpCommClass();
+        public PUMPCOMMSERVERLib.PumpCommClass citratePumps2 = new PUMPCOMMSERVERLib.PumpCommClass();
+        public PUMPCOMMSERVERLib.PumpCommClass lipidPumps2 = new PUMPCOMMSERVERLib.PumpCommClass();
         private System.Windows.Forms.TextBox pump2Speed;
         private System.Windows.Forms.Label P;
         private System.Windows.Forms.TextBox pump2Vol;
