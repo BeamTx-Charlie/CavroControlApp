@@ -31,11 +31,17 @@ namespace CSSample
         //4 = Waste
 
         private string[] INIT = { "Z0R" };
-        private string[] PRIMELIPID = { "I2R", "V1200R", "A2900R", "V1200R", "I1R", "A0R", "I2R", "A1000R"};
-        private string[] PRIMECITRATE = { "I3R", "V1200R", "A750R", "V1200R", "I4R", "A0R", "I3R", "A501R"};
-        private string[] WASHLIPID = {"I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R",
+        private string[] PRIMELIPID = { "I2R", "V1200R", "A2700R", "V1200R", "I1R", "A0R", "I2R", "A1000R"};
+        private string[] PRIMECITRATE = { "I3R", "V1200R", "A880R", "V1200R", "I4R", "A0R", "I3R", "A501R"};
+        //private string[] WASHLIPID = {"I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R",
+        //                                 "A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
+        //line below contains the first wash volume going through the T, the one above doesn't
+        private string[] WASHLIPID = {"I4R","V1200R","A2900R","I3R","A0R","I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R",
                                          "A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
-        private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
+        //private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
+        //                                 "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
+        //line below contains the first wash volume going through the T, the one above doesn't
+        private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I2R", "A0R","I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
                                          "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
         private string[] FORMULATELIPID = {"I3R" ,"V100R" , "A0R"};
         private string[] FORMULATECITRATE = {"I2R" ,"V100R" , "A0R"};
@@ -133,7 +139,7 @@ namespace CSSample
                     var twinstatus = pumpservertwin.PumpCheckDevStatus(byte.Parse(pumpNum));
                     if (twinstatus != 1)
                     {
-                        await Task.Delay(4000);
+                        await Task.Delay(5000);
                         pumpservertwin.PumpWaitForDevice(byte.Parse(pumpNum));
                     }
                     if (status != "")
