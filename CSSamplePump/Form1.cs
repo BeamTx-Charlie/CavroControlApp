@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
@@ -165,17 +166,26 @@ namespace CSSample
         //Init Button Click
         private async void btnInit_Click(object sender, EventArgs e)
         {
+            var pumpAction = new List<Task>();
+            if (pumps.Contains(1))
+            {
+                pumpAction.Add(InitializeAllPumps(1));
+            }
+            if (pumps.Contains(2))
+            {
+                pumpAction.Add(InitializeAllPumps(2));
+            }
 
-            await InitializeAllPumps(pumps);
-            
+            await Task.WhenAll(pumpAction);
+
+            listBox1.Items.Add("Init Complete");
+            listBox1.TopIndex = listBox1.Items.Count - 1;
         }
 
         //initializes pairs of pumps simultaneously
-        private async Task InitializeAllPumps(int[] pumps)
+        private async Task InitializeAllPumps(int pump)
         {
 
-            foreach (int pump in pumps)
-            {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 var taskCitrate = sendCommandAsync(INIT, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
                 var taskLipid = sendCommandAsync(INIT, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
@@ -198,10 +208,6 @@ namespace CSSample
                     listBox1.Items.Add(ex.ToString());
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
-                
-            }
-            listBox1.Items.Add("Init Complete");
-            listBox1.TopIndex = listBox1.Items.Count - 1;
         }
 
         //Init Prime Click
