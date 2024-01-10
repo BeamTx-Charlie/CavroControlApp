@@ -55,7 +55,7 @@ namespace CSSample
             this.cmbBaudRate = new System.Windows.Forms.ComboBox();
             this.txtComPort = new System.Windows.Forms.TextBox();
             this.cmdOpenCom = new System.Windows.Forms.Button();
-            this.btnPrime = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.btnInit = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnPurge = new System.Windows.Forms.Button();
@@ -86,6 +86,8 @@ namespace CSSample
             this.pSet4Check = new System.Windows.Forms.CheckBox();
             this.pSet3Check = new System.Windows.Forms.CheckBox();
             this.pSet2Check = new System.Windows.Forms.CheckBox();
+            this.worklistSelectDialog = new System.Windows.Forms.OpenFileDialog();
+            this.txtWorklisFpth = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -94,7 +96,6 @@ namespace CSSample
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnResume);
-            this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.pumpNumDrop);
             this.groupBox1.Controls.Add(this.phaseSelectDrop);
             this.groupBox1.Controls.Add(this.btnSendCommand);
@@ -128,7 +129,7 @@ namespace CSSample
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(640, 85);
+            this.btnStop.Location = new System.Drawing.Point(452, 22);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(138, 34);
             this.btnStop.TabIndex = 13;
@@ -273,15 +274,15 @@ namespace CSSample
             this.cmdOpenCom.UseVisualStyleBackColor = true;
             this.cmdOpenCom.Click += new System.EventHandler(this.cmdOpenCom_Click);
             // 
-            // btnPrime
+            // btnStart
             // 
-            this.btnPrime.Location = new System.Drawing.Point(156, 22);
-            this.btnPrime.Name = "btnPrime";
-            this.btnPrime.Size = new System.Drawing.Size(142, 37);
-            this.btnPrime.TabIndex = 14;
-            this.btnPrime.Text = "Prime";
-            this.btnPrime.UseVisualStyleBackColor = true;
-            this.btnPrime.Click += new System.EventHandler(this.btnPrime_Click);
+            this.btnStart.Location = new System.Drawing.Point(156, 22);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(142, 37);
+            this.btnStart.TabIndex = 14;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnInit
             // 
@@ -295,10 +296,10 @@ namespace CSSample
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnPurge);
-            this.groupBox2.Controls.Add(this.btnWash);
+            this.groupBox2.Controls.Add(this.txtWorklisFpth);
+            this.groupBox2.Controls.Add(this.btnStop);
             this.groupBox2.Controls.Add(this.btnFormulate);
-            this.groupBox2.Controls.Add(this.btnPrime);
+            this.groupBox2.Controls.Add(this.btnStart);
             this.groupBox2.Controls.Add(this.btnInit);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label3);
@@ -324,7 +325,7 @@ namespace CSSample
             // 
             // btnPurge
             // 
-            this.btnPurge.Location = new System.Drawing.Point(603, 23);
+            this.btnPurge.Location = new System.Drawing.Point(1515, 912);
             this.btnPurge.Name = "btnPurge";
             this.btnPurge.Size = new System.Drawing.Size(142, 37);
             this.btnPurge.TabIndex = 26;
@@ -334,7 +335,7 @@ namespace CSSample
             // 
             // btnWash
             // 
-            this.btnWash.Location = new System.Drawing.Point(454, 23);
+            this.btnWash.Location = new System.Drawing.Point(1515, 869);
             this.btnWash.Name = "btnWash";
             this.btnWash.Size = new System.Drawing.Size(142, 37);
             this.btnWash.TabIndex = 25;
@@ -348,14 +349,14 @@ namespace CSSample
             this.btnFormulate.Name = "btnFormulate";
             this.btnFormulate.Size = new System.Drawing.Size(142, 37);
             this.btnFormulate.TabIndex = 24;
-            this.btnFormulate.Text = "Formulate";
+            this.btnFormulate.Text = "Seected Start";
             this.btnFormulate.UseVisualStyleBackColor = true;
             this.btnFormulate.Click += new System.EventHandler(this.btnFormulate_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(159, 122);
+            this.label8.Location = new System.Drawing.Point(498, 127);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(187, 20);
             this.label8.TabIndex = 16;
@@ -364,7 +365,7 @@ namespace CSSample
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(154, 62);
+            this.label3.Location = new System.Drawing.Point(154, 127);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(187, 20);
             this.label3.TabIndex = 15;
@@ -372,7 +373,7 @@ namespace CSSample
             // 
             // pump2Vol
             // 
-            this.pump2Vol.Location = new System.Drawing.Point(10, 138);
+            this.pump2Vol.Location = new System.Drawing.Point(366, 154);
             this.pump2Vol.Name = "pump2Vol";
             this.pump2Vol.Size = new System.Drawing.Size(100, 26);
             this.pump2Vol.TabIndex = 14;
@@ -380,7 +381,7 @@ namespace CSSample
             // 
             // pump1Vol
             // 
-            this.pump1Vol.Location = new System.Drawing.Point(14, 86);
+            this.pump1Vol.Location = new System.Drawing.Point(14, 152);
             this.pump1Vol.Name = "pump1Vol";
             this.pump1Vol.Size = new System.Drawing.Size(100, 26);
             this.pump1Vol.TabIndex = 13;
@@ -389,7 +390,7 @@ namespace CSSample
             // P
             // 
             this.P.AutoSize = true;
-            this.P.Location = new System.Drawing.Point(8, 115);
+            this.P.Location = new System.Drawing.Point(362, 127);
             this.P.Name = "P";
             this.P.Size = new System.Drawing.Size(121, 20);
             this.P.TabIndex = 12;
@@ -397,7 +398,7 @@ namespace CSSample
             // 
             // pump2Speed
             // 
-            this.pump2Speed.Location = new System.Drawing.Point(159, 148);
+            this.pump2Speed.Location = new System.Drawing.Point(502, 152);
             this.pump2Speed.Name = "pump2Speed";
             this.pump2Speed.Size = new System.Drawing.Size(151, 26);
             this.pump2Speed.TabIndex = 11;
@@ -441,18 +442,18 @@ namespace CSSample
             // 
             // cmdSendCommand
             // 
-            this.cmdSendCommand.Location = new System.Drawing.Point(391, 98);
+            this.cmdSendCommand.Location = new System.Drawing.Point(630, 81);
             this.cmdSendCommand.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmdSendCommand.Name = "cmdSendCommand";
             this.cmdSendCommand.Size = new System.Drawing.Size(172, 37);
             this.cmdSendCommand.TabIndex = 5;
-            this.cmdSendCommand.Text = "Update Commands";
+            this.cmdSendCommand.Text = "Select Worklist";
             this.cmdSendCommand.UseVisualStyleBackColor = true;
             this.cmdSendCommand.Click += new System.EventHandler(this.cmdSendCommand_Click);
             // 
             // pump1Speed
             // 
-            this.pump1Speed.Location = new System.Drawing.Point(159, 86);
+            this.pump1Speed.Location = new System.Drawing.Point(156, 152);
             this.pump1Speed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pump1Speed.Name = "pump1Speed";
             this.pump1Speed.Size = new System.Drawing.Size(151, 26);
@@ -462,7 +463,7 @@ namespace CSSample
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 63);
+            this.label5.Location = new System.Drawing.Point(10, 127);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 20);
@@ -497,7 +498,7 @@ namespace CSSample
             this.listBox2.ItemHeight = 20;
             this.listBox2.Location = new System.Drawing.Point(862, 71);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(169, 304);
+            this.listBox2.Size = new System.Drawing.Size(626, 304);
             this.listBox2.TabIndex = 3;
             // 
             // stepSelect
@@ -514,13 +515,13 @@ namespace CSSample
             "Purge"});
             this.stepSelect.Location = new System.Drawing.Point(862, 32);
             this.stepSelect.Name = "stepSelect";
-            this.stepSelect.Size = new System.Drawing.Size(169, 28);
+            this.stepSelect.Size = new System.Drawing.Size(626, 28);
             this.stepSelect.TabIndex = 4;
             this.stepSelect.SelectedIndexChanged += new System.EventHandler(this.stepSelect_SelectedIndexChanged);
             // 
             // btnEditStep
             // 
-            this.btnEditStep.Location = new System.Drawing.Point(861, 420);
+            this.btnEditStep.Location = new System.Drawing.Point(1318, 416);
             this.btnEditStep.Name = "btnEditStep";
             this.btnEditStep.Size = new System.Drawing.Size(170, 32);
             this.btnEditStep.TabIndex = 5;
@@ -530,7 +531,7 @@ namespace CSSample
             // 
             // btnSaveStep
             // 
-            this.btnSaveStep.Location = new System.Drawing.Point(862, 458);
+            this.btnSaveStep.Location = new System.Drawing.Point(1318, 454);
             this.btnSaveStep.Name = "btnSaveStep";
             this.btnSaveStep.Size = new System.Drawing.Size(170, 32);
             this.btnSaveStep.TabIndex = 6;
@@ -542,7 +543,7 @@ namespace CSSample
             // 
             this.txtEditStepBox.Location = new System.Drawing.Point(861, 383);
             this.txtEditStepBox.Name = "txtEditStepBox";
-            this.txtEditStepBox.Size = new System.Drawing.Size(169, 26);
+            this.txtEditStepBox.Size = new System.Drawing.Size(627, 26);
             this.txtEditStepBox.TabIndex = 7;
             // 
             // pSet1Check
@@ -561,6 +562,7 @@ namespace CSSample
             // pSet4Check
             // 
             this.pSet4Check.AutoSize = true;
+            this.pSet4Check.Enabled = false;
             this.pSet4Check.Location = new System.Drawing.Point(280, 252);
             this.pSet4Check.Name = "pSet4Check";
             this.pSet4Check.Size = new System.Drawing.Size(73, 24);
@@ -572,6 +574,7 @@ namespace CSSample
             // pSet3Check
             // 
             this.pSet3Check.AutoSize = true;
+            this.pSet3Check.Enabled = false;
             this.pSet3Check.Location = new System.Drawing.Point(202, 252);
             this.pSet3Check.Name = "pSet3Check";
             this.pSet3Check.Size = new System.Drawing.Size(73, 24);
@@ -583,6 +586,7 @@ namespace CSSample
             // pSet2Check
             // 
             this.pSet2Check.AutoSize = true;
+            this.pSet2Check.Enabled = false;
             this.pSet2Check.Location = new System.Drawing.Point(123, 252);
             this.pSet2Check.Name = "pSet2Check";
             this.pSet2Check.Size = new System.Drawing.Size(73, 24);
@@ -591,12 +595,25 @@ namespace CSSample
             this.pSet2Check.UseVisualStyleBackColor = true;
             this.pSet2Check.CheckedChanged += new System.EventHandler(this.pSet2Check_CheckedChanged);
             // 
+            // worklistSelectDialog
+            // 
+            this.worklistSelectDialog.FileName = "worklistSelectDialog";
+            // 
+            // txtWorklisFpth
+            // 
+            this.txtWorklisFpth.Location = new System.Drawing.Point(26, 86);
+            this.txtWorklisFpth.Name = "txtWorklisFpth";
+            this.txtWorklisFpth.Size = new System.Drawing.Size(596, 26);
+            this.txtWorklisFpth.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1092, 994);
+            this.ClientSize = new System.Drawing.Size(1744, 994);
             this.Controls.Add(this.pSet2Check);
+            this.Controls.Add(this.btnWash);
+            this.Controls.Add(this.btnPurge);
             this.Controls.Add(this.pSet3Check);
             this.Controls.Add(this.pSet4Check);
             this.Controls.Add(this.pSet1Check);
@@ -659,7 +676,7 @@ namespace CSSample
         private Button btnSendCommand;
         private TextBox txtManCommand;
         private Button btnInit;
-        private Button btnPrime;
+        private Button btnStart;
         private ListBox listBox2;
         private ComboBox stepSelect;
         private Button btnEditStep;
@@ -674,6 +691,8 @@ namespace CSSample
         private CheckBox pSet2Check;
         private Button btnStop;
         private Button btnResume;
+        private TextBox txtWorklisFpth;
+        private OpenFileDialog worklistSelectDialog;
     }
 }
 

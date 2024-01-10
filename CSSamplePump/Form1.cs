@@ -102,21 +102,16 @@ namespace CSSample
 
         private void cmdSendCommand_Click(object sender, EventArgs e)
         {
-            //******Remove .25 if 1mL syringe is installed
-            double pumpLipidspeed = ((Int32.Parse(pump1Speed.Text) / 60) * (3000 / .25));
-            double pumpCitratespeed = ((Int32.Parse(pump2Speed.Text) / 60) * (3000));
+            worklistSelectDialog.ShowDialog();
+            txtWorklisFpth.Text = worklistSelectDialog.FileName;
 
-            FORMULATELIPID[1] = "V" + pumpLipidspeed + "R";
-            FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
 
-            //*****Change 250 to 1000 is 1mL syringe is installed
-            string pump1Volume =  "A" + ((Int32.Parse(pump1Vol.Text) / 250) * (3000)).ToString() + "R" ;
-            string pump2Volume =  "A" + ((Int32.Parse(pump1Vol.Text) / 1000) * (3000)).ToString() + "R" ;
+            string [] worklistRows = File.ReadAllLines(txtWorklisFpth.Text);
 
-            PRIMELIPID[PRIMELIPID.Length - 1] = pump1Volume;
-            PRIMECITRATE[PRIMELIPID.Length - 1] = pump2Volume;
-                 
-
+            foreach (string row in worklistRows)
+            {
+                listBox2.Items.Add(row);
+            }
         }
 
         //Parses list of commands for action and complete one at a time
@@ -213,9 +208,38 @@ namespace CSSample
         }
 
         //Init Prime Click
-        private void btnPrime_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            PrimeAllPumps(pumps);
+            listBox1.Items.Add("Parsing formulation worklist...");
+
+            string [] conditions = File.ReadAllLines(txtWorklisFpth.Text);
+            int numconditions = conditions.Length - 1;
+            listBox1.Items.Add("Preparing to run " + numconditions + " Formulations");
+
+            int index = 1;
+
+            foreach(string condition in conditions)
+            {
+                string[] settings = condition.Split(',');
+
+                if(!settings[0].Contains("Lipid"))
+                {
+                    listBox2.SelectedIndex = index;
+
+                    pump1Vol.Text = settings[1];
+                    pump2Vol.Text = settings[3];
+
+                    pump1Speed.Text = ((Convert.ToDouble(settings[4])/4)*3).ToString();
+                    pump2Speed.Text = (Convert.ToDouble(settings[4])/4).ToString();
+
+                    MessageBox.Show("");
+
+                    index++;
+
+                }
+            }
+
+            listBox2.ClearSelected();
         }
 
         //Primes Pairs of Pumps Simultaneously
