@@ -83,9 +83,9 @@ namespace CSSample
                 char[] lipidCOM = txtComPort2.Text.ToCharArray();
 
                 citratePumps.PumpInitComm(byte.Parse(citrateCOM[0].ToString()));
-                citratePumps2.PumpInitComm(byte.Parse(citrateCOM[1].ToString()));
+                //citratePumps2.PumpInitComm(byte.Parse(citrateCOM[1].ToString()));
                 lipidPumps.PumpInitComm(byte.Parse(lipidCOM[0].ToString()));
-                lipidPumps2.PumpInitComm(byte.Parse(lipidCOM[1].ToString()));
+                //lipidPumps2.PumpInitComm(byte.Parse(lipidCOM[1].ToString()));
 
 
             }
@@ -210,7 +210,7 @@ namespace CSSample
         }
 
         //Init Prime Click
-        private void btnStart_Click(object sender, EventArgs e)
+        private async void btnStart_Click(object sender, EventArgs e)
         {
             listBox1.Items.Add("Parsing formulation worklist...");
 
@@ -248,17 +248,23 @@ namespace CSSample
 
                     listBox1.Items.Add("Priming...");
 
-                    //PrimeAllPumps();
+                    var primeTask = PrimeAllPumps();
+
+                    await Task.WhenAll(primeTask);
 
                     listBox1.Items.Add("Formulating...");
 
-                   //runFormulation();
+                    var frunFormulate = runFormulation();
+
+                    await Task.WhenAll(frunFormulate);
 
                     for (int i = 0; i < Convert.ToInt32(settings[5]); i++)
                     {
                         listBox1.Items.Add("Washing " + (i + 1) + " of " + settings[5] + " times...");
 
-                        //WashAllPumps();
+                        var runWash = WashAllPumps();
+
+                        await Task.WhenAll(runWash);
                     }
 
                     index++;
@@ -272,13 +278,13 @@ namespace CSSample
         }
 
         //Primes Pairs of Pumps Simultaneously
-        private async void PrimeAllPumps()
+        private async Task<string> PrimeAllPumps()
         {
             double pumpLipidVol = ((Int32.Parse(pump1Vol.Text) / 250) * (3000));
             double pumpCitrateVol = ((Int32.Parse(pump2Vol.Text) / 1000) * (3000));
 
-            FORMULATELIPID[PRIMELIPID.Length-1] = "A" + pumpLipidVol + "R";
-            FORMULATECITRATE[PRIMECITRATE.Length-1] = "A" + pumpCitrateVol + "R";
+            PRIMELIPID[PRIMELIPID.Length-1] = "A" + pumpLipidVol + "R";
+            PRIMECITRATE[PRIMECITRATE.Length-1] = "A" + pumpCitrateVol + "R";
 
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
@@ -308,6 +314,7 @@ namespace CSSample
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
             }
+            return "complete";
         }
 
         //Wash Button Click
@@ -317,7 +324,7 @@ namespace CSSample
         }
 
         //Washed Pairs of Pumps Simultaneously
-        private async void WashAllPumps()
+        private async Task<string> WashAllPumps()
         {
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
@@ -347,6 +354,8 @@ namespace CSSample
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
             }
+
+            return "complete";
         }
 
         //Formulation Button Click
@@ -356,10 +365,10 @@ namespace CSSample
         }
 
         //Formulate Pairs of Pumps Simultaneously
-        private async void runFormulation()
+        private async Task<string> runFormulation()
         {
-            double pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)/60) * (3000/.25));
-            double pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)/60) * (3000));
+            double pumpLipidspeed = ((Double.Parse(pump1Speed.Text)/60) * (3000/.25));
+            double pumpCitratespeed = ((Double.Parse(pump2Speed.Text)/60) * (3000));
 
             FORMULATELIPID[1] = "V" + pumpLipidspeed + "R";
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
@@ -392,6 +401,8 @@ namespace CSSample
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
             }
+
+            return "complete";
         }
 
         private void btnPurge_Click(object sender, EventArgs e)

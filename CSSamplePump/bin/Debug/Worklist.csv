@@ -1,4 +1,4 @@
 Lipid,Lipid Volume (uL),mRNA,Citrate Volume (uL),Output Flow Rate (mL/min),Number of washes
-lip123,167,mRNA1456,500,10,5
-lip456,167,mRNA1456,500,12,3
-lip789,100,mRNA1456,300,15,2
+lip123,167,mRNA1456,500,10,1
+lip456,167,mRNA1456,500,12,1
+lip789,100,mRNA1456,300,15,1
