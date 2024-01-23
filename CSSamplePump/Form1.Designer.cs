@@ -42,7 +42,6 @@ namespace CSSample
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnResume = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
             this.pumpNumDrop = new System.Windows.Forms.ComboBox();
             this.phaseSelectDrop = new System.Windows.Forms.ComboBox();
             this.btnSendCommand = new System.Windows.Forms.Button();
@@ -55,11 +54,11 @@ namespace CSSample
             this.cmbBaudRate = new System.Windows.Forms.ComboBox();
             this.txtComPort = new System.Windows.Forms.TextBox();
             this.cmdOpenCom = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnInit = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnPurge = new System.Windows.Forms.Button();
-            this.btnWash = new System.Windows.Forms.Button();
+            this.txtWorklisFpth = new System.Windows.Forms.TextBox();
             this.btnFormulate = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -74,6 +73,8 @@ namespace CSSample
             this.cmdSendCommand = new System.Windows.Forms.Button();
             this.pump1Speed = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnPurge = new System.Windows.Forms.Button();
+            this.btnWash = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
@@ -87,7 +88,6 @@ namespace CSSample
             this.pSet3Check = new System.Windows.Forms.CheckBox();
             this.pSet2Check = new System.Windows.Forms.CheckBox();
             this.worklistSelectDialog = new System.Windows.Forms.OpenFileDialog();
-            this.txtWorklisFpth = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -126,16 +126,6 @@ namespace CSSample
             this.btnResume.Text = "Resume";
             this.btnResume.UseVisualStyleBackColor = true;
             this.btnResume.Click += new System.EventHandler(this.btnResume_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.Location = new System.Drawing.Point(452, 22);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(138, 34);
-            this.btnStop.TabIndex = 13;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // pumpNumDrop
             // 
@@ -274,6 +264,16 @@ namespace CSSample
             this.cmdOpenCom.UseVisualStyleBackColor = true;
             this.cmdOpenCom.Click += new System.EventHandler(this.cmdOpenCom_Click);
             // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(452, 22);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(138, 34);
+            this.btnStop.TabIndex = 13;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
             // btnStart
             // 
             this.btnStart.Location = new System.Drawing.Point(156, 22);
@@ -323,25 +323,12 @@ namespace CSSample
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pump Controls";
             // 
-            // btnPurge
+            // txtWorklisFpth
             // 
-            this.btnPurge.Location = new System.Drawing.Point(1515, 912);
-            this.btnPurge.Name = "btnPurge";
-            this.btnPurge.Size = new System.Drawing.Size(142, 37);
-            this.btnPurge.TabIndex = 26;
-            this.btnPurge.Text = "Purge";
-            this.btnPurge.UseVisualStyleBackColor = true;
-            this.btnPurge.Click += new System.EventHandler(this.btnPurge_Click);
-            // 
-            // btnWash
-            // 
-            this.btnWash.Location = new System.Drawing.Point(1515, 869);
-            this.btnWash.Name = "btnWash";
-            this.btnWash.Size = new System.Drawing.Size(142, 37);
-            this.btnWash.TabIndex = 25;
-            this.btnWash.Text = "Wash";
-            this.btnWash.UseVisualStyleBackColor = true;
-            this.btnWash.Click += new System.EventHandler(this.btnWash_Click);
+            this.txtWorklisFpth.Location = new System.Drawing.Point(26, 86);
+            this.txtWorklisFpth.Name = "txtWorklisFpth";
+            this.txtWorklisFpth.Size = new System.Drawing.Size(596, 26);
+            this.txtWorklisFpth.TabIndex = 12;
             // 
             // btnFormulate
             // 
@@ -358,18 +345,18 @@ namespace CSSample
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(498, 127);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(187, 20);
+            this.label8.Size = new System.Drawing.Size(270, 30);
             this.label8.TabIndex = 16;
-            this.label8.Text = "Pump 2 Velocity (mL/min)";
+            this.label8.Text = "Citrate Velocity (mL/min)";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(154, 127);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(187, 20);
+            this.label3.Size = new System.Drawing.Size(249, 30);
             this.label3.TabIndex = 15;
-            this.label3.Text = "Pump 1 Velocity (mL/min)";
+            this.label3.Text = "Lipid Velocity (mL/min)";
             // 
             // pump2Vol
             // 
@@ -392,9 +379,9 @@ namespace CSSample
             this.P.AutoSize = true;
             this.P.Location = new System.Drawing.Point(362, 127);
             this.P.Name = "P";
-            this.P.Size = new System.Drawing.Size(121, 20);
+            this.P.Size = new System.Drawing.Size(171, 30);
             this.P.TabIndex = 12;
-            this.P.Text = "Pump 2 Volume";
+            this.P.Text = "Citrate Volume";
             // 
             // pump2Speed
             // 
@@ -466,9 +453,29 @@ namespace CSSample
             this.label5.Location = new System.Drawing.Point(10, 127);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 20);
+            this.label5.Size = new System.Drawing.Size(150, 30);
             this.label5.TabIndex = 3;
-            this.label5.Text = "Pump 1 Volume";
+            this.label5.Text = "Lipid Volume";
+            // 
+            // btnPurge
+            // 
+            this.btnPurge.Location = new System.Drawing.Point(1515, 912);
+            this.btnPurge.Name = "btnPurge";
+            this.btnPurge.Size = new System.Drawing.Size(142, 37);
+            this.btnPurge.TabIndex = 26;
+            this.btnPurge.Text = "Purge";
+            this.btnPurge.UseVisualStyleBackColor = true;
+            this.btnPurge.Click += new System.EventHandler(this.btnPurge_Click);
+            // 
+            // btnWash
+            // 
+            this.btnWash.Location = new System.Drawing.Point(1515, 869);
+            this.btnWash.Name = "btnWash";
+            this.btnWash.Size = new System.Drawing.Size(142, 37);
+            this.btnWash.TabIndex = 25;
+            this.btnWash.Text = "Wash";
+            this.btnWash.UseVisualStyleBackColor = true;
+            this.btnWash.Click += new System.EventHandler(this.btnWash_Click);
             // 
             // groupBox3
             // 
@@ -598,13 +605,6 @@ namespace CSSample
             // worklistSelectDialog
             // 
             this.worklistSelectDialog.FileName = "worklistSelectDialog";
-            // 
-            // txtWorklisFpth
-            // 
-            this.txtWorklisFpth.Location = new System.Drawing.Point(26, 86);
-            this.txtWorklisFpth.Name = "txtWorklisFpth";
-            this.txtWorklisFpth.Size = new System.Drawing.Size(596, 26);
-            this.txtWorklisFpth.TabIndex = 12;
             // 
             // Form1
             // 

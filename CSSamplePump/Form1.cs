@@ -102,6 +102,8 @@ namespace CSSample
 
         private void cmdSendCommand_Click(object sender, EventArgs e)
         {
+            listBox2.Items.Clear();
+
             worklistSelectDialog.ShowDialog();
             txtWorklisFpth.Text = worklistSelectDialog.FileName;
 
@@ -212,6 +214,18 @@ namespace CSSample
         {
             listBox1.Items.Add("Parsing formulation worklist...");
 
+            if (!File.Exists(txtWorklisFpth.Text))
+            {
+                listBox1.Items.Add("ERROR!: Could ot find the file specified. Please select a valid filepath and retry");
+                return;
+            }
+
+            if (listBox2.Items.Count < 1)
+            {
+                listBox1.Items.Add("ERROR!: No Active worklist. Please import a worklist forthe fomulation(s).");
+                return;
+            }
+
             string [] conditions = File.ReadAllLines(txtWorklisFpth.Text);
             int numconditions = conditions.Length - 1;
             listBox1.Items.Add("Preparing to run " + numconditions + " Formulations");
@@ -229,21 +243,36 @@ namespace CSSample
                     pump1Vol.Text = settings[1];
                     pump2Vol.Text = settings[3];
 
-                    pump1Speed.Text = ((Convert.ToDouble(settings[4])/4)*3).ToString();
-                    pump2Speed.Text = (Convert.ToDouble(settings[4])/4).ToString();
+                    pump1Speed.Text = (Convert.ToDouble(settings[4]) / 4).ToString();
+                    pump2Speed.Text = ((Convert.ToDouble(settings[4]) / 4) * 3).ToString(); 
 
-                    MessageBox.Show("");
+                    listBox1.Items.Add("Priming...");
+
+                    //PrimeAllPumps();
+
+                    listBox1.Items.Add("Formulating...");
+
+                   //runFormulation();
+
+                    for (int i = 0; i < Convert.ToInt32(settings[5]); i++)
+                    {
+                        listBox1.Items.Add("Washing " + (i + 1) + " of " + settings[5] + " times...");
+
+                        //WashAllPumps();
+                    }
 
                     index++;
 
                 }
             }
 
-            listBox2.ClearSelected();
+            listBox1.Items.Add("All Formulations Complete!");
+
+            listBox2.Items.Clear();
         }
 
         //Primes Pairs of Pumps Simultaneously
-        private async void PrimeAllPumps(int[] pumps)
+        private async void PrimeAllPumps()
         {
             double pumpLipidVol = ((Int32.Parse(pump1Vol.Text) / 250) * (3000));
             double pumpCitrateVol = ((Int32.Parse(pump2Vol.Text) / 1000) * (3000));
@@ -284,11 +313,11 @@ namespace CSSample
         //Wash Button Click
         private void btnWash_Click(object sender, EventArgs e)
         {
-            WashAllPumps(pumps);
+            WashAllPumps();
         }
 
         //Washed Pairs of Pumps Simultaneously
-        private async void WashAllPumps(int[] pumps)
+        private async void WashAllPumps()
         {
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
@@ -323,11 +352,11 @@ namespace CSSample
         //Formulation Button Click
         private void btnFormulate_Click(object sender, EventArgs e)
         {
-            runFormulation(pumps);
+            runFormulation();
         }
 
         //Formulate Pairs of Pumps Simultaneously
-        private async void runFormulation(int[] pumps)
+        private async void runFormulation()
         {
             double pumpLipidspeed = ((Int32.Parse(pump1Speed.Text)/60) * (3000/.25));
             double pumpCitratespeed = ((Int32.Parse(pump2Speed.Text)/60) * (3000));
