@@ -59,7 +59,7 @@ namespace CSSample
             this.btnInit = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtWorklisFpth = new System.Windows.Forms.TextBox();
-            this.btnFormulate = new System.Windows.Forms.Button();
+            this.btnSelectStart = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pump2Vol = new System.Windows.Forms.TextBox();
@@ -298,7 +298,7 @@ namespace CSSample
             // 
             this.groupBox2.Controls.Add(this.txtWorklisFpth);
             this.groupBox2.Controls.Add(this.btnStop);
-            this.groupBox2.Controls.Add(this.btnFormulate);
+            this.groupBox2.Controls.Add(this.btnSelectStart);
             this.groupBox2.Controls.Add(this.btnStart);
             this.groupBox2.Controls.Add(this.btnInit);
             this.groupBox2.Controls.Add(this.label8);
@@ -330,22 +330,22 @@ namespace CSSample
             this.txtWorklisFpth.Size = new System.Drawing.Size(596, 26);
             this.txtWorklisFpth.TabIndex = 12;
             // 
-            // btnFormulate
+            // btnSelectStart
             // 
-            this.btnFormulate.Location = new System.Drawing.Point(304, 22);
-            this.btnFormulate.Name = "btnFormulate";
-            this.btnFormulate.Size = new System.Drawing.Size(142, 37);
-            this.btnFormulate.TabIndex = 24;
-            this.btnFormulate.Text = "Seected Start";
-            this.btnFormulate.UseVisualStyleBackColor = true;
-            this.btnFormulate.Click += new System.EventHandler(this.btnFormulate_Click);
+            this.btnSelectStart.Location = new System.Drawing.Point(304, 22);
+            this.btnSelectStart.Name = "btnSelectStart";
+            this.btnSelectStart.Size = new System.Drawing.Size(142, 37);
+            this.btnSelectStart.TabIndex = 24;
+            this.btnSelectStart.Text = "Selected Start";
+            this.btnSelectStart.UseVisualStyleBackColor = true;
+            this.btnSelectStart.Click += new System.EventHandler(this.btnSelectStart_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(498, 127);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(270, 30);
+            this.label8.Size = new System.Drawing.Size(180, 20);
             this.label8.TabIndex = 16;
             this.label8.Text = "Citrate Velocity (mL/min)";
             // 
@@ -354,7 +354,7 @@ namespace CSSample
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(154, 127);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(249, 30);
+            this.label3.Size = new System.Drawing.Size(166, 20);
             this.label3.TabIndex = 15;
             this.label3.Text = "Lipid Velocity (mL/min)";
             // 
@@ -379,7 +379,7 @@ namespace CSSample
             this.P.AutoSize = true;
             this.P.Location = new System.Drawing.Point(362, 127);
             this.P.Name = "P";
-            this.P.Size = new System.Drawing.Size(171, 30);
+            this.P.Size = new System.Drawing.Size(114, 20);
             this.P.TabIndex = 12;
             this.P.Text = "Citrate Volume";
             // 
@@ -453,7 +453,7 @@ namespace CSSample
             this.label5.Location = new System.Drawing.Point(10, 127);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(150, 30);
+            this.label5.Size = new System.Drawing.Size(100, 20);
             this.label5.TabIndex = 3;
             this.label5.Text = "Lipid Volume";
             // 
@@ -684,7 +684,7 @@ namespace CSSample
         private TextBox txtEditStepBox;
         private Button btnPurge;
         private Button btnWash;
-        private Button btnFormulate;
+        private Button btnSelectStart;
         private CheckBox pSet1Check;
         private CheckBox pSet4Check;
         private CheckBox pSet3Check;

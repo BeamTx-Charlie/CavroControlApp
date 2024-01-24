@@ -43,6 +43,7 @@ namespace CSSample
         private string[] PURGECITRATE = { "I3R","V1200R","A2900R","I4R","A0R","I2R","A2900R","I4R","A0R"};
         private int[] pumps = {1};
         private int stopStatus = 0;
+        private DialogResult dglReturn;
 
         
 
@@ -102,13 +103,17 @@ namespace CSSample
 
         private void cmdSendCommand_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Clear();
-
             worklistSelectDialog.ShowDialog();
             txtWorklisFpth.Text = worklistSelectDialog.FileName;
 
+            importWorklist(txtWorklisFpth.Text);
+        }
 
-            string [] worklistRows = File.ReadAllLines(txtWorklisFpth.Text);
+        private void importWorklist(string filePath)
+        {
+            listBox2.Items.Clear();
+
+            string[] worklistRows = File.ReadAllLines(filePath);
 
             foreach (string row in worklistRows)
             {
@@ -216,25 +221,26 @@ namespace CSSample
 
             if (!File.Exists(txtWorklisFpth.Text))
             {
-                listBox1.Items.Add("ERROR!: Could ot find the file specified. Please select a valid filepath and retry");
+                listBox1.Items.Add("ERROR!: Could not find the file specified. Please select a valid filepath and retry");
                 return;
             }
+
+            importWorklist(txtWorklisFpth.Text);
 
             if (listBox2.Items.Count < 1)
             {
-                listBox1.Items.Add("ERROR!: No Active worklist. Please import a worklist forthe fomulation(s).");
+                listBox1.Items.Add("ERROR!: No Active worklist. Please import a worklist for the fomulation(s).");
                 return;
             }
 
-            string [] conditions = File.ReadAllLines(txtWorklisFpth.Text);
-            int numconditions = conditions.Length - 1;
+            int numconditions = listBox2.Items.Count - 1;
             listBox1.Items.Add("Preparing to run " + numconditions + " Formulations");
 
             int index = 1;
 
-            foreach(string condition in conditions)
+            for (int i = 0; i < listBox2.Items.Count; i++)
             {
-                string[] settings = condition.Split(',');
+                string[] settings = listBox2.SelectedIndex.ToString().Split(',');
 
                 if(!settings[0].Contains("Lipid"))
                 {
@@ -244,7 +250,15 @@ namespace CSSample
                     pump2Vol.Text = settings[3];
 
                     pump1Speed.Text = (Convert.ToDouble(settings[4]) / 4).ToString();
-                    pump2Speed.Text = ((Convert.ToDouble(settings[4]) / 4) * 3).ToString(); 
+                    pump2Speed.Text = ((Convert.ToDouble(settings[4]) / 4) * 3).ToString();
+
+                    var dlgReturn = MessageBox.Show("Load " + settings[1] + " uL of " + settings[0] + " and " + settings[3] + " uL of " + settings[2] + ".","Prime",MessageBoxButtons.OKCancel);
+
+                    if (dlgReturn == DialogResult.Cancel)
+                    {
+                        listBox1.Items.Add("Cancelling Priming. Recover pumps manually before starting again.");
+                        return;
+                    }
 
                     listBox1.Items.Add("Priming...");
 
@@ -252,14 +266,18 @@ namespace CSSample
 
                     await Task.WhenAll(primeTask);
 
+                    MessageBox.Show("run Formulation?","Formulation", MessageBoxButtons.YesNo);
+
                     listBox1.Items.Add("Formulating...");
 
                     var frunFormulate = runFormulation();
 
                     await Task.WhenAll(frunFormulate);
 
-                    for (int i = 0; i < Convert.ToInt32(settings[5]); i++)
+                    for (i = 0; i < Convert.ToInt32(settings[5]); i++)
                     {
+                        MessageBox.Show("Ready to Wash?");
+
                         listBox1.Items.Add("Washing " + (i + 1) + " of " + settings[5] + " times...");
 
                         var runWash = WashAllPumps();
@@ -280,11 +298,14 @@ namespace CSSample
         //Primes Pairs of Pumps Simultaneously
         private async Task<string> PrimeAllPumps()
         {
-            double pumpLipidVol = ((Int32.Parse(pump1Vol.Text) / 250) * (3000));
-            double pumpCitrateVol = ((Int32.Parse(pump2Vol.Text) / 1000) * (3000));
+            double pumpLipidVol = ((Double.Parse(pump1Vol.Text) / 250) * (3000));
+            double pumpCitrateVol = ((Double.Parse(pump2Vol.Text) / 1000) * (3000));
 
-            PRIMELIPID[PRIMELIPID.Length-1] = "A" + pumpLipidVol + "R";
-            PRIMECITRATE[PRIMECITRATE.Length-1] = "A" + pumpCitrateVol + "R";
+            PRIMELIPID[7] = "A" + pumpLipidVol + "R";
+            PRIMECITRATE[7] = "A" + pumpCitrateVol + "R";
+
+            listBox1.Items.Add("Cavro Lipid Setting: " + PRIMELIPID[7]);
+            listBox1.Items.Add("Cavro Citrate Setting: " + PRIMECITRATE[7]);
 
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
@@ -359,9 +380,9 @@ namespace CSSample
         }
 
         //Formulation Button Click
-        private void btnFormulate_Click(object sender, EventArgs e)
+        private void btnSelectStart_Click(object sender, EventArgs e)
         {
-            runFormulation();
+            
         }
 
         //Formulate Pairs of Pumps Simultaneously
