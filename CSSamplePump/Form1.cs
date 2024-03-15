@@ -44,8 +44,8 @@ namespace CSSample
         //line below contains the first wash volume going through the T, the one above doesn't
         private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I2R", "A0R","I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
                                          "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
-        private string[] FORMULATELIPID = {"I3R" ,"V100R" , "A0R"};
-        private string[] FORMULATECITRATE = {"I2R" ,"V100R" , "A0R"};
+        private string[] FORMULATELIPID = {"I3R" , "V100R" , "A0R"};
+        private string[] FORMULATECITRATE = {"I2R" , "V100R" , "A0R"};
         private string[] PURGELIPID = { "I2R","V1200R","A2900R","I1R","A0R","I3R","A2900R","I1R","A0R"};
         private string[] PURGECITRATE = { "I3R","V1200R","A2900R","I4R","A0R","I2R","A2900R","I4R","A0R"};
         private int[] pumps = {1};

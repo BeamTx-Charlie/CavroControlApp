@@ -52,3 +52,4 @@ C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroC
 C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\bin\Debug\CSSample.exe
 C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\bin\Debug\CSSample.pdb
 C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.CopyComplete
+C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\Interop.PUMPCOMMSERVERLib.dll
