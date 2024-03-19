@@ -105,18 +105,18 @@ namespace CSSample
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
 
             //*****Change 250 to 1000 is 1mL syringe is installed
-            var pump2Volume =  (decimal.Parse(pump2Vol.Text) / 1000) * 3000;
+            var pump2Volume = Math.Round((decimal.Parse(pump2Vol.Text) / 1000) * 3000);
 
             listBox1.Items.Add("Citrate Volume in Steps: " + pump2Volume);
 
-            var primeStepsCitrate = (citratePrimeVol.Value / 1000) * 3000;
+            var primeStepsCitrate = Math.Round((citratePrimeVol.Value / 1000) * 3000);
 
             
             var finalCitratePos = pump2Volume - primeStepsCitrate;
             //USe final citrate position to calculate corrected lipid position to account for priming volume in the tubes
-            var finalLipidPos = (finalCitratePos / 3) + (lipidPrimeVol.Value*3);
+            var finalLipidPos = Math.Round((finalCitratePos / 3) + (lipidPrimeVol.Value*3));
 
-            var pump1Volume = finalCitratePos + lipidPrimeVol.Value;
+            var pump1Volume = Math.Round(finalLipidPos + lipidPrimeVol.Value);
 
             listBox1.Items.Add("Lipid Volume in Steps: " + pump1Volume);
 
@@ -228,14 +228,14 @@ namespace CSSample
         //Primes Pairs of Pumps Simultaneously
         private async void PrimeAllPumps(int[] pumps)
         {
-            var pump1Volume = (decimal.Parse(pump1Vol.Text) / 1000) * 3000;
-            var pump2Volume = (decimal.Parse(pump2Vol.Text) / 1000) * 3000;
+            var pump1Volume = Math.Round((decimal.Parse(pump1Vol.Text) / 1000) * 3000);
+            var pump2Volume = Math.Round((decimal.Parse(pump2Vol.Text) / 1000) * 3000);
 
             listBox1.Items.Add("Lipid Volume in Steps: " + pump1Volume);
             listBox1.Items.Add("Citrate Volume in Steps: " + pump2Volume);
 
-            var primeStepsLipid = (lipidPrimeVol.Value / 1000) * 3000;
-            var primeStepsCitrate = (citratePrimeVol.Value / 1000) * 3000;
+            var primeStepsLipid = Math.Round((lipidPrimeVol.Value / 1000) * 3050);
+            var primeStepsCitrate = Math.Round((citratePrimeVol.Value / 1000) * 3100);
 
             var finalLipidPos = pump1Volume - primeStepsLipid;
             var finalCitratePos = pump2Volume - primeStepsCitrate;
