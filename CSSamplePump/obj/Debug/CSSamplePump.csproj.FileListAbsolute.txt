@@ -53,3 +53,15 @@ C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroC
 C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\bin\Debug\CSSample.pdb
 C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.CopyComplete
 C:\Users\CharliePollock\OneDrive - Beam Therapeutics Inc\Documents\GitHub\CavroControl\CavroControlApp\CSSamplePump\obj\Debug\Interop.PUMPCOMMSERVERLib.dll
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.AssemblyReference.cache
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.SuggestedBindingRedirects.cache
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSample.Form1.resources
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSample.Properties.Resources.resources
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.GenerateResource.cache
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.CoreCompileInputs.cache
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSample.exe
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSample.pdb
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\bin\Debug\CSSample.exe.config
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\bin\Debug\CSSample.exe
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\bin\Debug\CSSample.pdb
+C:\Users\Charlie\source\repos\Intellixy\CavroControlApp\CSSamplePump\obj\Debug\CSSamplePump.csproj.CopyComplete

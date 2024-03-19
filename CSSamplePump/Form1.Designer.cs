@@ -32,15 +32,10 @@ namespace CSSample
         /// </summary>
         /// 
 
-        public event EventHandler Shown;
-        private void FormShown (object sender, EventArgs e)
-        {
-            MessageBox.Show("Did we go here Form.Shown event");
-        }
-
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.boolSimulate = new System.Windows.Forms.CheckBox();
             this.btnResume = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.pumpNumDrop = new System.Windows.Forms.ComboBox();
@@ -86,13 +81,20 @@ namespace CSSample
             this.pSet4Check = new System.Windows.Forms.CheckBox();
             this.pSet3Check = new System.Windows.Forms.CheckBox();
             this.pSet2Check = new System.Windows.Forms.CheckBox();
+            this.lipidPrimeVol = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.citratePrimeVol = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lipidPrimeVol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.citratePrimeVol)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.boolSimulate);
             this.groupBox1.Controls.Add(this.btnResume);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.pumpNumDrop);
@@ -114,10 +116,20 @@ namespace CSSample
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Initialize";
             // 
+            // boolSimulate
+            // 
+            this.boolSimulate.AutoSize = true;
+            this.boolSimulate.Location = new System.Drawing.Point(17, 78);
+            this.boolSimulate.Name = "boolSimulate";
+            this.boolSimulate.Size = new System.Drawing.Size(66, 17);
+            this.boolSimulate.TabIndex = 15;
+            this.boolSimulate.Text = "Simulate";
+            this.boolSimulate.UseVisualStyleBackColor = true;
+            // 
             // btnResume
             // 
             this.btnResume.Location = new System.Drawing.Point(427, 79);
-            this.btnResume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnResume.Margin = new System.Windows.Forms.Padding(2);
             this.btnResume.Name = "btnResume";
             this.btnResume.Size = new System.Drawing.Size(92, 22);
             this.btnResume.TabIndex = 14;
@@ -128,7 +140,7 @@ namespace CSSample
             // btnStop
             // 
             this.btnStop.Location = new System.Drawing.Point(427, 55);
-            this.btnStop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(2);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(92, 22);
             this.btnStop.TabIndex = 13;
@@ -195,14 +207,14 @@ namespace CSSample
             this.txtComPort2.Name = "txtComPort2";
             this.txtComPort2.Size = new System.Drawing.Size(58, 20);
             this.txtComPort2.TabIndex = 6;
-            this.txtComPort2.Text = "8";
+            this.txtComPort2.Text = "5";
             // 
             // chkLog
             // 
             this.chkLog.AutoSize = true;
             this.chkLog.Checked = true;
             this.chkLog.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLog.Location = new System.Drawing.Point(17, 67);
+            this.chkLog.Location = new System.Drawing.Point(17, 55);
             this.chkLog.Name = "chkLog";
             this.chkLog.Size = new System.Drawing.Size(94, 17);
             this.chkLog.TabIndex = 5;
@@ -246,7 +258,7 @@ namespace CSSample
             this.txtComPort.Name = "txtComPort";
             this.txtComPort.Size = new System.Drawing.Size(58, 20);
             this.txtComPort.TabIndex = 1;
-            this.txtComPort.Text = "3";
+            this.txtComPort.Text = "6";
             // 
             // cmdOpenCom
             // 
@@ -261,7 +273,7 @@ namespace CSSample
             // btnPrime
             // 
             this.btnPrime.Location = new System.Drawing.Point(104, 14);
-            this.btnPrime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPrime.Margin = new System.Windows.Forms.Padding(2);
             this.btnPrime.Name = "btnPrime";
             this.btnPrime.Size = new System.Drawing.Size(95, 24);
             this.btnPrime.TabIndex = 14;
@@ -272,7 +284,7 @@ namespace CSSample
             // btnInit
             // 
             this.btnInit.Location = new System.Drawing.Point(5, 15);
-            this.btnInit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInit.Margin = new System.Windows.Forms.Padding(2);
             this.btnInit.Name = "btnInit";
             this.btnInit.Size = new System.Drawing.Size(95, 24);
             this.btnInit.TabIndex = 13;
@@ -282,6 +294,10 @@ namespace CSSample
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.citratePrimeVol);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.lipidPrimeVol);
             this.groupBox2.Controls.Add(this.btnPurge);
             this.groupBox2.Controls.Add(this.btnWash);
             this.groupBox2.Controls.Add(this.btnFormulate);
@@ -310,7 +326,7 @@ namespace CSSample
             // btnPurge
             // 
             this.btnPurge.Location = new System.Drawing.Point(402, 15);
-            this.btnPurge.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPurge.Margin = new System.Windows.Forms.Padding(2);
             this.btnPurge.Name = "btnPurge";
             this.btnPurge.Size = new System.Drawing.Size(95, 24);
             this.btnPurge.TabIndex = 26;
@@ -321,7 +337,7 @@ namespace CSSample
             // btnWash
             // 
             this.btnWash.Location = new System.Drawing.Point(303, 15);
-            this.btnWash.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnWash.Margin = new System.Windows.Forms.Padding(2);
             this.btnWash.Name = "btnWash";
             this.btnWash.Size = new System.Drawing.Size(95, 24);
             this.btnWash.TabIndex = 25;
@@ -332,7 +348,7 @@ namespace CSSample
             // btnFormulate
             // 
             this.btnFormulate.Location = new System.Drawing.Point(203, 14);
-            this.btnFormulate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnFormulate.Margin = new System.Windows.Forms.Padding(2);
             this.btnFormulate.Name = "btnFormulate";
             this.btnFormulate.Size = new System.Drawing.Size(95, 24);
             this.btnFormulate.TabIndex = 24;
@@ -363,20 +379,20 @@ namespace CSSample
             // pump2Vol
             // 
             this.pump2Vol.Location = new System.Drawing.Point(7, 90);
-            this.pump2Vol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pump2Vol.Margin = new System.Windows.Forms.Padding(2);
             this.pump2Vol.Name = "pump2Vol";
             this.pump2Vol.Size = new System.Drawing.Size(68, 20);
             this.pump2Vol.TabIndex = 14;
-            this.pump2Vol.Text = "300";
+            this.pump2Vol.Text = "600";
             // 
             // pump1Vol
             // 
             this.pump1Vol.Location = new System.Drawing.Point(9, 56);
-            this.pump1Vol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pump1Vol.Margin = new System.Windows.Forms.Padding(2);
             this.pump1Vol.Name = "pump1Vol";
             this.pump1Vol.Size = new System.Drawing.Size(68, 20);
             this.pump1Vol.TabIndex = 13;
-            this.pump1Vol.Text = "125";
+            this.pump1Vol.Text = "200";
             // 
             // P
             // 
@@ -391,7 +407,7 @@ namespace CSSample
             // pump2Speed
             // 
             this.pump2Speed.Location = new System.Drawing.Point(106, 96);
-            this.pump2Speed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pump2Speed.Margin = new System.Windows.Forms.Padding(2);
             this.pump2Speed.Name = "pump2Speed";
             this.pump2Speed.Size = new System.Drawing.Size(102, 20);
             this.pump2Speed.TabIndex = 11;
@@ -431,7 +447,7 @@ namespace CSSample
             // 
             // cmdSendCommand
             // 
-            this.cmdSendCommand.Location = new System.Drawing.Point(261, 64);
+            this.cmdSendCommand.Location = new System.Drawing.Point(419, 92);
             this.cmdSendCommand.Name = "cmdSendCommand";
             this.cmdSendCommand.Size = new System.Drawing.Size(115, 24);
             this.cmdSendCommand.TabIndex = 5;
@@ -478,7 +494,7 @@ namespace CSSample
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(575, 46);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(114, 199);
             this.listBox2.TabIndex = 3;
@@ -496,7 +512,7 @@ namespace CSSample
             "Wash Citrate",
             "Purge"});
             this.stepSelect.Location = new System.Drawing.Point(575, 21);
-            this.stepSelect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stepSelect.Margin = new System.Windows.Forms.Padding(2);
             this.stepSelect.Name = "stepSelect";
             this.stepSelect.Size = new System.Drawing.Size(114, 21);
             this.stepSelect.TabIndex = 4;
@@ -505,7 +521,7 @@ namespace CSSample
             // btnEditStep
             // 
             this.btnEditStep.Location = new System.Drawing.Point(574, 273);
-            this.btnEditStep.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnEditStep.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditStep.Name = "btnEditStep";
             this.btnEditStep.Size = new System.Drawing.Size(113, 21);
             this.btnEditStep.TabIndex = 5;
@@ -516,7 +532,7 @@ namespace CSSample
             // btnSaveStep
             // 
             this.btnSaveStep.Location = new System.Drawing.Point(575, 298);
-            this.btnSaveStep.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSaveStep.Margin = new System.Windows.Forms.Padding(2);
             this.btnSaveStep.Name = "btnSaveStep";
             this.btnSaveStep.Size = new System.Drawing.Size(113, 21);
             this.btnSaveStep.TabIndex = 6;
@@ -527,7 +543,7 @@ namespace CSSample
             // txtEditStepBox
             // 
             this.txtEditStepBox.Location = new System.Drawing.Point(574, 249);
-            this.txtEditStepBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEditStepBox.Margin = new System.Windows.Forms.Padding(2);
             this.txtEditStepBox.Name = "txtEditStepBox";
             this.txtEditStepBox.Size = new System.Drawing.Size(114, 20);
             this.txtEditStepBox.TabIndex = 7;
@@ -538,7 +554,7 @@ namespace CSSample
             this.pSet1Check.Checked = true;
             this.pSet1Check.CheckState = System.Windows.Forms.CheckState.Checked;
             this.pSet1Check.Location = new System.Drawing.Point(31, 164);
-            this.pSet1Check.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pSet1Check.Margin = new System.Windows.Forms.Padding(2);
             this.pSet1Check.Name = "pSet1Check";
             this.pSet1Check.Size = new System.Drawing.Size(51, 17);
             this.pSet1Check.TabIndex = 8;
@@ -550,7 +566,7 @@ namespace CSSample
             // 
             this.pSet4Check.AutoSize = true;
             this.pSet4Check.Location = new System.Drawing.Point(187, 164);
-            this.pSet4Check.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pSet4Check.Margin = new System.Windows.Forms.Padding(2);
             this.pSet4Check.Name = "pSet4Check";
             this.pSet4Check.Size = new System.Drawing.Size(51, 17);
             this.pSet4Check.TabIndex = 9;
@@ -562,7 +578,7 @@ namespace CSSample
             // 
             this.pSet3Check.AutoSize = true;
             this.pSet3Check.Location = new System.Drawing.Point(135, 164);
-            this.pSet3Check.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pSet3Check.Margin = new System.Windows.Forms.Padding(2);
             this.pSet3Check.Name = "pSet3Check";
             this.pSet3Check.Size = new System.Drawing.Size(51, 17);
             this.pSet3Check.TabIndex = 10;
@@ -574,13 +590,65 @@ namespace CSSample
             // 
             this.pSet2Check.AutoSize = true;
             this.pSet2Check.Location = new System.Drawing.Point(82, 164);
-            this.pSet2Check.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pSet2Check.Margin = new System.Windows.Forms.Padding(2);
             this.pSet2Check.Name = "pSet2Check";
             this.pSet2Check.Size = new System.Drawing.Size(51, 17);
             this.pSet2Check.TabIndex = 11;
             this.pSet2Check.Text = "Set 2";
             this.pSet2Check.UseVisualStyleBackColor = true;
             this.pSet2Check.CheckedChanged += new System.EventHandler(this.pSet2Check_CheckedChanged);
+            // 
+            // lipidPrimeVol
+            // 
+            this.lipidPrimeVol.Location = new System.Drawing.Point(243, 55);
+            this.lipidPrimeVol.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.lipidPrimeVol.Name = "lipidPrimeVol";
+            this.lipidPrimeVol.Size = new System.Drawing.Size(120, 20);
+            this.lipidPrimeVol.TabIndex = 27;
+            this.lipidPrimeVol.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(240, 39);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(96, 13);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Lipid Prime Volume";
+            // 
+            // citratePrimeVol
+            // 
+            this.citratePrimeVol.Location = new System.Drawing.Point(243, 96);
+            this.citratePrimeVol.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.citratePrimeVol.Name = "citratePrimeVol";
+            this.citratePrimeVol.Size = new System.Drawing.Size(120, 20);
+            this.citratePrimeVol.TabIndex = 29;
+            this.citratePrimeVol.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(240, 80);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(104, 13);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "Citrate Prime Volume";
             // 
             // Form1
             // 
@@ -606,6 +674,8 @@ namespace CSSample
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lipidPrimeVol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.citratePrimeVol)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -630,6 +700,7 @@ namespace CSSample
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtReply;
         private System.Windows.Forms.TextBox txtErr;
+
 
         public PUMPCOMMSERVERLib.PumpCommClass citratePumps = new PUMPCOMMSERVERLib.PumpCommClass();
         public PUMPCOMMSERVERLib.PumpCommClass lipidPumps = new PUMPCOMMSERVERLib.PumpCommClass();
@@ -662,6 +733,11 @@ namespace CSSample
         private CheckBox pSet2Check;
         private Button btnStop;
         private Button btnResume;
+        private CheckBox boolSimulate;
+        private Label label10;
+        private NumericUpDown citratePrimeVol;
+        private Label label9;
+        private NumericUpDown lipidPrimeVol;
     }
 }
 

@@ -32,27 +32,15 @@ namespace CSSample
         //4 = Waste
 
         private string[] INIT = { "Z0R" };
-        private string[] PRIMELIPID = { "I2R", "V1200R", "A3000R","I3R","A700R","A550R"};
-        private string[] PRIMECITRATE = { "I3R", "V1200R", "A3000R","I2R","A1800R","A1650R"};
-        //private string[] WASHLIPID = {"I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R",
-        //                                 "A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
-        //line below contains the first wash volume going through the T, the one above doesn't
-        private string[] WASHLIPID = {"I4R","V1200R","A2900R","I3R","A0R","I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R",
-                                         "A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
-        //private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
-        //                                 "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
-        //line below contains the first wash volume going through the T, the one above doesn't
-        private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I2R", "A0R","I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R",
-                                         "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
+        private string[] PRIMELIPID = { "I2R", "V1200R", "A3000R","I3R","A700R","V100R","A550R"};
+        private string[] PRIMECITRATE = { "I3R", "V1200R", "A3000R","I2R","A1800R","V100R","A1650R"};
+        private string[] WASHLIPID = {"I4R","V1200R","A2900R","I3R","A0R","I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R","A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
+        private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I2R", "A0R","I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R", "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
         private string[] FORMULATELIPID = {"I3R" , "V100R" , "A0R"};
         private string[] FORMULATECITRATE = {"I2R" , "V100R" , "A0R"};
         private string[] PURGELIPID = { "I2R","V1200R","A2900R","I1R","A0R","I3R","A2900R","I1R","A0R"};
         private string[] PURGECITRATE = { "I3R","V1200R","A2900R","I4R","A0R","I2R","A2900R","I4R","A0R"};
         private int[] pumps = {1};
-        private int stopStatus = 0;
-
-        
-
 
 
 
@@ -61,8 +49,14 @@ namespace CSSample
 
         private void cmdOpenCom_Click(object sender, EventArgs e)
         {
+            if (boolSimulate.Checked)
+            {
+                listBox1.Items.Add("*************Simulating Pumps**************");
+                return;
+            }
             try
             {
+
                 if (chkLog.Checked == true)
                 {
                     citratePumps.PumpSetLogWnd(listBox1.Handle.ToInt32());
@@ -111,21 +105,36 @@ namespace CSSample
             FORMULATECITRATE[1] = "V" + pumpCitratespeed + "R";
 
             //*****Change 250 to 1000 is 1mL syringe is installed
-            string pump1Volume =  "A" + ((double.Parse(pump1Vol.Text) / 1000) * (3000)).ToString() + "R" ;
-            string pump2Volume =  "A" + ((double.Parse(pump2Vol.Text) / 1000) * (3000)).ToString() + "R" ;
+            var pump2Volume =  (decimal.Parse(pump2Vol.Text) / 1000) * 3000;
 
-            listBox1.Items.Add(pump1Volume);
-            listBox1.Items.Add(pump2Volume);
+            listBox1.Items.Add("Citrate Volume in Steps: " + pump2Volume);
 
-            //PRIMELIPID[PRIMELIPID.Length - 1] = pump1Volume;
-            //PRIMECITRATE[PRIMELIPID.Length - 1] = pump2Volume;
-                 
+            var primeStepsCitrate = (citratePrimeVol.Value / 1000) * 3000;
+
+            
+            var finalCitratePos = pump2Volume - primeStepsCitrate;
+            //USe final citrate position to calculate corrected lipid position to account for priming volume in the tubes
+            var finalLipidPos = (finalCitratePos / 3) + (lipidPrimeVol.Value*3);
+
+            var pump1Volume = finalCitratePos + lipidPrimeVol.Value;
+
+            listBox1.Items.Add("Lipid Volume in Steps: " + pump1Volume);
+
+            //set position for air gap no prime
+            PRIMELIPID[PRIMELIPID.Length - 3] = "A" + pump1Volume.ToString() + "R";
+            PRIMECITRATE[PRIMELIPID.Length - 3] = "A"+ pump2Volume.ToString() + "R";
+
+
+            //Set position for full prime to Tee
+            PRIMELIPID[PRIMELIPID.Length - 1] = "A" + finalLipidPos.ToString() + "R";
+            PRIMECITRATE[PRIMELIPID.Length - 1] = "A" + finalCitratePos.ToString() + "R";
 
         }
 
         //Parses list of commands for action and complete one at a time
         private async Task<string> sendCommandAsync(string[] commands, string pumpNum, PUMPCOMMSERVERLib.PumpCommClass pumpserver, PUMPCOMMSERVERLib.PumpCommClass pumpservertwin, CancellationToken c, CancellationTokenSource cts)
         {
+            if (boolSimulate.Checked) return "*C*";
             
             string status = "";
             try
@@ -219,11 +228,23 @@ namespace CSSample
         //Primes Pairs of Pumps Simultaneously
         private async void PrimeAllPumps(int[] pumps)
         {
-            var pumpLipidVol = ((double.Parse(pump1Vol.Text) / 1000) * (3000));
-            var pumpCitrateVol = ((double.Parse(pump2Vol.Text) / 1000) * (3000));
+            var pump1Volume = (decimal.Parse(pump1Vol.Text) / 1000) * 3000;
+            var pump2Volume = (decimal.Parse(pump2Vol.Text) / 1000) * 3000;
 
-            //PRIMELIPID[PRIMELIPID.Length-1] = "A" + pumpLipidVol + "R";
-            //PRIMECITRATE[PRIMECITRATE.Length-1] = "A" + pumpCitrateVol + "R";
+            listBox1.Items.Add("Lipid Volume in Steps: " + pump1Volume);
+            listBox1.Items.Add("Citrate Volume in Steps: " + pump2Volume);
+
+            var primeStepsLipid = (lipidPrimeVol.Value / 1000) * 3000;
+            var primeStepsCitrate = (citratePrimeVol.Value / 1000) * 3000;
+
+            var finalLipidPos = pump1Volume - primeStepsLipid;
+            var finalCitratePos = pump2Volume - primeStepsCitrate;
+
+            PRIMELIPID[PRIMELIPID.Length - 3] = "A" + pump1Volume.ToString() + "R";
+            PRIMECITRATE[PRIMELIPID.Length - 3] = "A" + pump2Volume.ToString() + "R";
+
+            PRIMELIPID[PRIMELIPID.Length - 1] = "A" + finalLipidPos.ToString() + "R";
+            PRIMECITRATE[PRIMELIPID.Length - 1] = "A" + finalCitratePos.ToString() + "R";
 
             var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
@@ -675,7 +696,7 @@ namespace CSSample
 
         private void btnResume_Click(object sender, EventArgs e)
         {
-            stopStatus = 0;
+            //stopStatus = 0;
         }
     }
 }
