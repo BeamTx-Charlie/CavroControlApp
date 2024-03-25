@@ -32,8 +32,8 @@ namespace CSSample
         //4 = Waste
 
         private string[] INIT = { "Z0R" };
-        private string[] PRIMELIPID = {"V1000R","I2R","A700R","I3R","V100R","A550R"};
-        private string[] PRIMECITRATE = {"V1000R","I3R","A1800R","I2R","V100R","A1650R"};
+        private string[] PRIMELIPID = {"V1000R","I2R","A1000R","I4R","A0R","I2R","A1000R","I3R","V100R","A550R"};
+        private string[] PRIMECITRATE = {"V1000R","I3R","A900R", "I4R", "A0R", "I3R", "A1000R","I2R","V100R","A1650R"};
         private string[] WASHLIPID = {"I4R","V1200R","A2900R","I3R","A0R","I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R","A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
         private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I2R", "A0R","I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R", "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
         private string[] FORMULATELIPID = {"I3R" , "V100R" , "A700R"};
@@ -261,8 +261,8 @@ namespace CSSample
         //Primes Pairs of Pumps Simultaneously
         private async void PrimeAllPumps(int[] pumps)
         {
-            var pump1Volume = Math.Round(((decimal.Parse(pump1Vol.Text) / 1000) * 3000)+700);
-            var pump2Volume = Math.Round(((decimal.Parse(pump2Vol.Text) / 1000) * 3000)+700);
+            var pump1Volume = Math.Round(((decimal.Parse(pump1Vol.Text) / 1000) * 3000));
+            var pump2Volume = Math.Round(((decimal.Parse(pump2Vol.Text) / 1000) * 3000));
 
             listBox1.Items.Add("Lipid Volume in Steps: " + pump1Volume);
             listBox1.Items.Add("Citrate Volume in Steps: " + pump2Volume);
@@ -283,31 +283,11 @@ namespace CSSample
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
                 listBox1.Items.Add("Priming Citrate");
-                var taskCitrate = sendCommandSeries(PRIMECITRATE, pump.ToString(), citratePumps, cts.Token, cts);
+                string taskCitrate = sendCommandSeries(PRIMECITRATE, pump.ToString(), citratePumps, cts.Token, cts);
                 MessageBox.Show("Citrate prime Complete. Hit OK to prime Lipid");
                 listBox1.Items.Add("Priming Lipid");
-                var taskLipid = sendCommandSeries(PRIMELIPID, pump.ToString(), lipidPumps, cts.Token, cts);
+                string taskLipid = sendCommandSeries(PRIMELIPID, pump.ToString(), lipidPumps, cts.Token, cts);
                 MessageBox.Show("Lipid prime Complete. Hit OK to continue");
-                try
-                {
-                    if (cts.IsCancellationRequested)
-                    {
-                        cts.Dispose();
-                        cts = new CancellationTokenSource();
-                    }
-                    else
-                    {
-                        cts.Dispose();
-                        listBox1.Items.Add("Prime Complete");
-                        listBox1.TopIndex = listBox1.Items.Count - 1;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    cts.Cancel();
-                    listBox1.Items.Add(ex.ToString());
-                    listBox1.TopIndex = listBox1.Items.Count - 1;
-                }
             }
         }
 
