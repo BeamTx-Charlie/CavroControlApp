@@ -172,6 +172,39 @@ namespace CSSample
             return status;
         }
 
+        //Parses list of commands for action and complete one at a time
+        private string sendCommandSeries(string[] commands, string pumpNum, PUMPCOMMSERVERLib.PumpCommClass pumpserver, CancellationToken c, CancellationTokenSource cts)
+        {
+            //if (boolSimulate.Checked) return "*C*";
+
+            string status = "";
+            try
+            {
+                foreach (string command in commands)
+                {
+                    if (!boolSimulate.Checked)
+                    {
+                        c.ThrowIfCancellationRequested();
+                        pumpserver.PumpSendCommand(command, byte.Parse(pumpNum), status);
+                        listBox1.TopIndex = listBox1.Items.Count - 1;
+                        c.ThrowIfCancellationRequested();
+                    }
+                    else
+                    {
+                        listBox1.Items.Add(command);
+                    }
+                }
+            }
+            catch when (c.IsCancellationRequested)
+            {
+                listBox1.Items.Add("Operation cancelled successfully");
+                status = "error";
+            }
+
+
+            return status;
+        }
+
         //Init Button Click
         private async void btnInit_Click(object sender, EventArgs e)
         {
@@ -246,15 +279,17 @@ namespace CSSample
             PRIMELIPID[PRIMELIPID.Length - 1] = "A" + finalLipidPos.ToString() + "R";
             PRIMECITRATE[PRIMELIPID.Length - 1] = "A" + finalCitratePos.ToString() + "R";
 
-            var tasks = new List<Task<string>>();
             foreach (int pump in pumps)
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
-                var taskCitrate = sendCommandAsync(PRIMECITRATE, pump.ToString(), citratePumps, lipidPumps, cts.Token, cts);
-                var taskLipid = sendCommandAsync(PRIMELIPID, pump.ToString(), lipidPumps, citratePumps, cts.Token, cts);
+                listBox1.Items.Add("Priming Citrate");
+                var taskCitrate = sendCommandSeries(PRIMECITRATE, pump.ToString(), citratePumps, cts.Token, cts);
+                MessageBox.Show("Citrate prime Complete. Hit OK to prime Lipid");
+                listBox1.Items.Add("Priming Lipid");
+                var taskLipid = sendCommandSeries(PRIMELIPID, pump.ToString(), lipidPumps, cts.Token, cts);
+                MessageBox.Show("Lipid prime Complete. Hit OK to continue");
                 try
                 {
-                    await Task.WhenAll(taskCitrate, taskLipid);
                     if (cts.IsCancellationRequested)
                     {
                         cts.Dispose();
