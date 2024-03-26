@@ -32,14 +32,14 @@ namespace CSSample
         //4 = Waste
 
         private string[] INIT = { "Z0R" };
-        private string[] PRIMELIPID = {"V1000R","I2R","A750R","I1R","A0R","I2R","A1000R","I3R","V100R","A550R"};
-        private string[] PRIMECITRATE = {"V1000R","I3R","A900R","I4R","A0R","I3R","A1000R","I2R","V100R","A1650R"};
+        private string[] PRIMELIPID = {"V1000R","I2R","A700R","I1R","A0R","I2R","A1000R","I3R","V100R","A550R"};
+        private string[] PRIMECITRATE = {"V1000R","I2R","A950R","I1R","A0R","I2R","A1000R","I3R","V100R","A1650R"};
         private string[] WASHLIPID = {"I4R","V1200R","A2900R","I3R","A0R","I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R","A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
         private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I2R", "A0R","I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R", "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
-        private string[] FORMULATELIPID = {"I3R" , "V100R" , "A700R"};
-        private string[] FORMULATECITRATE = {"I2R" , "V100R" , "A700R"};
+        private string[] FORMULATELIPID = {"I3R" , "V100R" , "A0R"};
+        private string[] FORMULATECITRATE = {"I3R" , "V100R" , "A0R"};
         private string[] PURGELIPID = { "I2R","V1200R","A2900R","I1R","A0R","I3R","A2900R","I1R","A0R"};
-        private string[] PURGECITRATE = { "I3R","V1200R","A2900R","I4R","A0R","I2R","A2900R","I4R","A0R"};
+        private string[] PURGECITRATE = { "I2R","V1200R","A2900R","I1R","A0R","I3R","A2900R","I1R","A0R"};
         private int[] pumps = {1};
 
 
