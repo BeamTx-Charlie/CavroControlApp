@@ -32,8 +32,8 @@ namespace CSSample
         //4 = Waste
 
         private string[] INIT = { "Z0R" };
-        private string[] PRIMELIPID = {"V1000R","I2R","A1000R","I4R","A0R","I2R","A1000R","I3R","V100R","A550R"};
-        private string[] PRIMECITRATE = {"V1000R","I3R","A900R", "I4R", "A0R", "I3R", "A1000R","I2R","V100R","A1650R"};
+        private string[] PRIMELIPID = {"V1000R","I2R","A1000R","I3R","V100R","A550R"};
+        private string[] PRIMECITRATE = {"V1000R","I3R", "A1000R","I2R","V100R","A1650R"};
         private string[] WASHLIPID = {"I4R","V1200R","A2900R","I3R","A0R","I4R","V1200R","A2900R","I2R","A0R","I4R","A2900R","I2R","A0R","A2900R","I3R","A0R","I2R","A2900R","I3R","A0R"};
         private string[] WASHCITRATE = {"I1R", "V1200R", "A2900R", "I2R", "A0R","I1R", "V1200R", "A2900R", "I3R", "A0R", "I1R", "A2900R", "I3R", "A0R", "A2900R", "I2R", "A0R","I3R", "A2900R", "I2R", "A0R"};
         private string[] FORMULATELIPID = {"I3R" , "V100R" , "A700R"};
@@ -261,8 +261,8 @@ namespace CSSample
         //Primes Pairs of Pumps Simultaneously
         private async void PrimeAllPumps(int[] pumps)
         {
-            var pump1Volume = Math.Round(((decimal.Parse(pump1Vol.Text) / 1000) * 3000));
-            var pump2Volume = Math.Round(((decimal.Parse(pump2Vol.Text) / 1000) * 3000));
+            var pump1Volume = Math.Round(((decimal.Parse(pump1Vol.Text) / 1000) * 3000)+750);
+            var pump2Volume = Math.Round(((decimal.Parse(pump2Vol.Text) / 1000) * 3000)+900);
 
             listBox1.Items.Add("Lipid Volume in Steps: " + pump1Volume);
             listBox1.Items.Add("Citrate Volume in Steps: " + pump2Volume);
